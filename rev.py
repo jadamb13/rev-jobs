@@ -16,7 +16,7 @@ from selenium.webdriver.common.by import By
 url = 'https://www.rev.com/workspace/findwork'
 
 options = Options()
-options.headless = False
+options.headless = True
 driver = webdriver.Firefox(options=options, executable_path="C:\\Users\\james\\Desktop\\geckodriver", log_path="C:\\Users\james\\Desktop\\geckodriver.log")
 driver.get(url)
 
