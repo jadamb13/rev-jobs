@@ -4,8 +4,9 @@ dates = []
 max_total_jobs = []
 max_line_jobs = []
 
+
 ### [ [Day of the week, [Time of day], [Line Jobs Available], [Total Jobs Available],
-###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Total Job Daily Max ]
+###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Line Job Daily Max ]
 daily_data = [ ['Sunday', [], [0], [0], 0, 0, ''], ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 0, ''],
              ['Wednesday', [], [0], [0], 0, 0, ''], ['Thusday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''],
              ['Saturday', [], [0], [0], 0, 0, ''] ]
@@ -42,6 +43,8 @@ for row in f:
         case 'Wednesday':
             daily_data[2][4] = max(daily_data[2][2])
             daily_data[2][5] = max(daily_data[2][3])
+            print(daily_data[2][4])
+            print(daily_data[2][5])
 
             daily_data[3][1].append(row[2] + " " + row[3])
             daily_data[3][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
@@ -75,6 +78,26 @@ for day in daily_data:
     max_total_jobs.append(day[5])
     max_line_jobs.append(day[4])
 
+# Remove leading placeholder '0' from line and total jobs lists (throws off index
+#   that is necessary for rev_graph.py)
+for day in daily_data:
+    if (len(day[2]) > 1):
+        day[2].pop(0)
+    if(len(day[3]) > 1):
+        day[3].pop(0)
+
+
+for day in daily_data:
+    max_line_job_index = day[2].index(day[4])
+    #print(max_line_job_index)
+    #if len(day[1]) > 0:
+        #print(day[1][max_line_job_index])
+#for day in daily_data:
+    #print(day)
+
+# FIRST TODO:
+    # code updating max values the day after needs to be changed to happen the day of
+        # otherwise, when rev_graph runs at the end of the week it will not have Sunday's information 
 
 # TODO: Will run into problem when weeks roll over -- I want the time of maximum jobs for THIS Sunday, not all Sundays, etc.
     # > Set up folders and files for year > month > week and start fresh with new text file each Monday
