@@ -1,15 +1,14 @@
 import os
 
 dates = []
-
 max_total_jobs = []
 max_line_jobs = []
+
 ### [ [Day of the week, [Time of day], [Line Jobs Available], [Total Jobs Available],
 ###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Total Job Daily Max ]
 daily_data = [ ['Sunday', [], [0], [0], 0, 0, ''], ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 0, ''],
              ['Wednesday', [], [0], [0], 0, 0, ''], ['Thusday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''],
              ['Saturday', [], [0], [0], 0, 0, ''] ]
-
 
 f = open('Rev_Job_Trends/rev_jobs.txt', 'r')
 
@@ -69,21 +68,14 @@ for row in f:
             daily_data[6][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[6][3].append(int(row[4]))
 
+### Gets unique dates and max job data for rev_graph.py
 unique_dates = set(dates)
+
 for day in daily_data:
     max_total_jobs.append(day[5])
     max_line_jobs.append(day[4])
-print(max_total_jobs)
-print(max_line_jobs)
-print(unique_dates)
-'''
-int_line_jobs = []
-int_total_jobs = []
-for item in daily_data[0][3]:
-    int_line_jobs.append(int(item))
-for item in daily_data[0][4]:
-    int_total_jobs.append(int(item))
-'''
+
+
 # TODO: Will run into problem when weeks roll over -- I want the time of maximum jobs for THIS Sunday, not all Sundays, etc.
     # > Set up folders and files for year > month > week and start fresh with new text file each Monday
         # >> Add a method that will aggregate data over specified time period for larger than weekly graph
