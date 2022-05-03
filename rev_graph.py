@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
-from process_data.py import *
+from datetime import date, time, datetime
 
+date = datetime.now()
+month =  date.strftime("%B")
 for i in range (0,len(line_jobs_maxes)):
     plt.text(dates_represented_on_graph[i], line_jobs_maxes[i], max_times[i], rotation=90)
 
@@ -12,4 +14,4 @@ plt.xticks(rotation=90)
 
 mng = plt.get_current_fig_manager()
 mng.window.state('zoomed')
-plt.show()
+plt.savefig('C:\\Users\\james\\Desktop\\Rev_Job_Trends\\' + month + '\\' + 'jobs.png')
