@@ -4,7 +4,7 @@ from datetime import date, time, datetime
 date = datetime.now()
 month =  date.strftime("%B")
 for i in range (0,len(line_jobs_maxes)):
-    plt.text(dates_represented_on_graph[i], line_jobs_maxes[i], max_times[i], rotation=90)
+    plt.text(unique_dates[i], max_line_jobs, max_times[i], rotation=90)
 
 plt.scatter(dates, line_jobs, s=15, color='b')
 plt.plot(dates_represented_on_graph, line_jobs_maxes, color='k')

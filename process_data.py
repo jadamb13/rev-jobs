@@ -2,22 +2,27 @@ import os
 
 dates = []
 
+max_total_jobs = []
+max_line_jobs = []
 ### [ [Day of the week, [Time of day], [Line Jobs Available], [Total Jobs Available],
-###   Line Jobs Daily Max, Total Jobs Daily Max]
-daily_data = [ ['Sunday', [], [], [], 0, 0], ['Monday', [], [], [], 0, 0], ['Tuesday', [], [], [], 0, 0],
-             ['Wednesday', [], [], [], 0, 0], ['Thusday', [], [], [], 0, 0], ['Friday', [], [], [], 0, 0],
-             ['Saturday', [], [], [], 0, 0] ]
+###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Total Job Daily Max ]
+daily_data = [ ['Sunday', [], [0], [0], 0, 0, ''], ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 0, ''],
+             ['Wednesday', [], [0], [0], 0, 0, ''], ['Thusday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''],
+             ['Saturday', [], [0], [0], 0, 0, ''] ]
+
 
 f = open('Rev_Job_Trends/rev_jobs.txt', 'r')
 
 for row in f:
+
     row = row.split(' ')
+    dates.append(row[1])
     day = row[0] # First value from line of text file
     match day:
         case 'Sunday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
-            
+            daily_data[6][4] = max(daily_data[6][2])
+            daily_data[6][5] = max(daily_data[6][3])
+
             daily_data[0][1].append(row[2] + " " + row[3])
             daily_data[0][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[0][3].append(int(row[4]))
@@ -29,45 +34,48 @@ for row in f:
             daily_data[1][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[1][3].append(int(row[4]))
         case 'Tuesday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
+            daily_data[1][4] = max(daily_data[1][2])
+            daily_data[1][5] = max(daily_data[1][3])
 
             daily_data[2][1].append(row[2] + " " + row[3])
             daily_data[2][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[2][3].append(int(row[4]))
         case 'Wednesday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
+            daily_data[2][4] = max(daily_data[2][2])
+            daily_data[2][5] = max(daily_data[2][3])
 
             daily_data[3][1].append(row[2] + " " + row[3])
             daily_data[3][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[3][3].append(int(row[4]))
         case 'Thursday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
+            daily_data[3][4] = max(daily_data[3][2])
+            daily_data[3][5] = max(daily_data[3][3])
 
             daily_data[4][1].append(row[2] + " " + row[3])
             daily_data[4][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[4][3].append(int(row[4]))
         case 'Friday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
+            daily_data[4][4] = max(daily_data[4][2])
+            daily_data[4][5] = max(daily_data[4][3])
 
             daily_data[5][1].append(row[2] + " " + row[3])
             daily_data[5][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[5][3].append(int(row[4]))
         case 'Saturday':
-            daily_data[0][4] = max(daily_data[0][2])
-            daily_data[0][5] = max(daily_data[0][3])
+            daily_data[5][4] = max(daily_data[5][2])
+            daily_data[5][5] = max(daily_data[5][3])
 
             daily_data[6][1].append(row[2] + " " + row[3])
             daily_data[6][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[6][3].append(int(row[4]))
-    dates.append(row[1])
 
+unique_dates = set(dates)
 for day in daily_data:
-    print(day)
-
+    max_total_jobs.append(day[5])
+    max_line_jobs.append(day[4])
+print(max_total_jobs)
+print(max_line_jobs)
+print(unique_dates)
 '''
 int_line_jobs = []
 int_total_jobs = []
