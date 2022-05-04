@@ -7,9 +7,9 @@ max_line_jobs = []
 
 ### [ [Day of the week, [Time of day], [Line Jobs Available], [Total Jobs Available],
 ###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Line Job Daily Max ]
-daily_data = [ ['Sunday', [], [0], [0], 0, 0, ''], ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 0, ''],
-             ['Wednesday', [], [0], [0], 0, 0, ''], ['Thusday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''],
-             ['Saturday', [], [0], [0], 0, 0, ''] ]
+daily_data = [ ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 0, ''], ['Wednesday', [], [0], [0], 0, 0, ''],
+             ['Thursday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''], ['Saturday', [], [0], [0], 0, 0, ''],
+             ['Sunday', [], [0], [0], 0, 0, ''] ]
 
 f = open('Rev_Job_Trends/rev_jobs.txt', 'r')
 
@@ -19,53 +19,51 @@ for row in f:
     dates.append(row[1])
     day = row[0] # First value from line of text file
     match day:
-        case 'Sunday':
-            daily_data[6][4] = max(daily_data[6][2])
-            daily_data[6][5] = max(daily_data[6][3])
-
-            daily_data[0][1].append(row[2] + " " + row[3])
-            daily_data[0][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[0][3].append(int(row[4]))
         case 'Monday':
             daily_data[0][4] = max(daily_data[0][2])
             daily_data[0][5] = max(daily_data[0][3])
 
-            daily_data[1][1].append(row[2] + " " + row[3])
-            daily_data[1][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[1][3].append(int(row[4]))
+            daily_data[0][1].append(row[2] + " " + row[3])
+            daily_data[0][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[0][3].append(int(row[4]))
         case 'Tuesday':
             daily_data[1][4] = max(daily_data[1][2])
             daily_data[1][5] = max(daily_data[1][3])
 
-            daily_data[2][1].append(row[2] + " " + row[3])
-            daily_data[2][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[2][3].append(int(row[4]))
+            daily_data[1][1].append(row[2] + " " + row[3])
+            daily_data[1][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[1][3].append(int(row[4]))
         case 'Wednesday':
             daily_data[2][4] = max(daily_data[2][2])
             daily_data[2][5] = max(daily_data[2][3])
-            print(daily_data[2][4])
-            print(daily_data[2][5])
 
-            daily_data[3][1].append(row[2] + " " + row[3])
-            daily_data[3][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[3][3].append(int(row[4]))
+            daily_data[2][1].append(row[2] + " " + row[3])
+            daily_data[2][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[2][3].append(int(row[4]))
         case 'Thursday':
             daily_data[3][4] = max(daily_data[3][2])
             daily_data[3][5] = max(daily_data[3][3])
 
-            daily_data[4][1].append(row[2] + " " + row[3])
-            daily_data[4][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[4][3].append(int(row[4]))
+            daily_data[3][1].append(row[2] + " " + row[3])
+            daily_data[3][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[3][3].append(int(row[4]))
         case 'Friday':
             daily_data[4][4] = max(daily_data[4][2])
             daily_data[4][5] = max(daily_data[4][3])
 
-            daily_data[5][1].append(row[2] + " " + row[3])
-            daily_data[5][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
-            daily_data[5][3].append(int(row[4]))
+            daily_data[4][1].append(row[2] + " " + row[3])
+            daily_data[4][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[4][3].append(int(row[4]))
         case 'Saturday':
             daily_data[5][4] = max(daily_data[5][2])
             daily_data[5][5] = max(daily_data[5][3])
+
+            daily_data[5][1].append(row[2] + " " + row[3])
+            daily_data[5][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
+            daily_data[5][3].append(int(row[4]))
+        case 'Sunday':
+            daily_data[6][4] = max(daily_data[6][2])
+            daily_data[6][5] = max(daily_data[6][3])
 
             daily_data[6][1].append(row[2] + " " + row[3])
             daily_data[6][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
@@ -89,15 +87,13 @@ for day in daily_data:
 
 for day in daily_data:
     max_line_job_index = day[2].index(day[4])
-    #print(max_line_job_index)
-    #if len(day[1]) > 0:
-        #print(day[1][max_line_job_index])
-#for day in daily_data:
-    #print(day)
 
-# FIRST TODO:
-    # code updating max values the day after needs to be changed to happen the day of
-        # otherwise, when rev_graph runs at the end of the week it will not have Sunday's information 
+    if len(day[1]) > 0:
+        day[6] = day[1][max_line_job_index]
+    else:
+        day[6] = "N/A"
+
+
 
 # TODO: Will run into problem when weeks roll over -- I want the time of maximum jobs for THIS Sunday, not all Sundays, etc.
     # > Set up folders and files for year > month > week and start fresh with new text file each Monday
