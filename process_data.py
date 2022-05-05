@@ -94,28 +94,6 @@ for day in daily_data:
     if(len(day[3]) > 1):
         day[3].pop(0)
 
-#print(sorted(unique_dates))
-'''
-for day in daily_data:
-    max_line_job_index = day[2].index(day[4])
 
-    if len(day[1]) > 0:
-        day[6] = day[1][max_line_job_index]
-    else:
-        day[6] = "N/A"
-'''
-
-
-# TODO: Will run into problem when weeks roll over -- I want the time of maximum jobs for THIS Sunday, not all Sundays, etc.
-    # > Set up folders and files for year > month > week and start fresh with new text file each Monday
-        # >> Add a method that will aggregate data over specified time period for larger than weekly graph
-
+# TODO: Add a method that will aggregate data over specified time period for larger than weekly graph
 # TODO: Create UI for desktop that will pop up and update once every morning with current Dashboard stats
-
-'''
-    If it's Monday: (When is this determined, and by what program -- the script, the rev program?)
-        - Use data from that month to create a graph and save the graph image to {.../Desktop/Rev_Job_Trends/Year/Month} directory
-            - Append rev_jobs txt file to {.../Desktop/Rev_Job_Trends/Year/Month/jobs.txt}
-                - After saving file successfully, delete all data from rev_jobs txt file to clear for new week and avoid mixing data
-
-'''
