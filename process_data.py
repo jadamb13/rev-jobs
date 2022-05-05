@@ -85,6 +85,7 @@ for day in daily_data:
         if job > 0:
             atj_combined.append(job)
 
+
 # Remove leading placeholder '0' from line and total jobs lists (throws off index
 #   that is necessary for rev_graph.py)
 for day in daily_data:
@@ -93,7 +94,7 @@ for day in daily_data:
     if(len(day[3]) > 1):
         day[3].pop(0)
 
-
+'''
 for day in daily_data:
     max_line_job_index = day[2].index(day[4])
 
@@ -101,7 +102,7 @@ for day in daily_data:
         day[6] = day[1][max_line_job_index]
     else:
         day[6] = "N/A"
-
+'''
 
 
 # TODO: Will run into problem when weeks roll over -- I want the time of maximum jobs for THIS Sunday, not all Sundays, etc.
