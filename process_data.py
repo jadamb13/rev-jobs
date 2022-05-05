@@ -94,6 +94,7 @@ for day in daily_data:
     if(len(day[3]) > 1):
         day[3].pop(0)
 
+#print(sorted(unique_dates))
 '''
 for day in daily_data:
     max_line_job_index = day[2].index(day[4])
