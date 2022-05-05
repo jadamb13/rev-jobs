@@ -1,9 +1,10 @@
 import os
 
 dates = []
-max_total_jobs = []
-max_line_jobs = []
-
+max_total_jobs_per_day = []
+max_line_jobs_per_day = []
+alj_combined = []
+atj_combined = []
 
 ### [ [Day of the week, [Time of day], [Line Jobs Available], [Total Jobs Available],
 ###   Line Jobs Daily Max, Total Jobs Daily Max, Time of Line Job Daily Max ]
@@ -73,8 +74,16 @@ for row in f:
 unique_dates = set(dates)
 
 for day in daily_data:
-    max_total_jobs.append(day[5])
-    max_line_jobs.append(day[4])
+    max_total_jobs_per_day.append(day[5])
+    max_line_jobs_per_day.append(day[4])
+    line_job_list = day[2]
+    total_job_list = day[3]
+    for job in line_job_list:
+        if job > 0:
+            alj_combined.append(job)
+    for job in total_job_list:
+        if job > 0:
+            atj_combined.append(job)
 
 # Remove leading placeholder '0' from line and total jobs lists (throws off index
 #   that is necessary for rev_graph.py)
