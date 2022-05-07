@@ -96,4 +96,3 @@ for day in daily_data:
 
 
 # TODO: Add a method that will aggregate data over specified time period for larger than weekly graph
-# TODO: Create UI for desktop that will pop up and update once every morning with current Dashboard stats
