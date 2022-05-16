@@ -12,12 +12,12 @@ date_today = today.strftime("%b-%d-%Y")
 current_month =  date.strftime("%B")
 current_year = date.strftime("%Y")
 
-test_dates = ['05/02', '05/03', '05/04', '5/05', '5/06', '5/07', '5/08']
+x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 sorted_unique_dates = list(sorted(unique_dates))
 
 # Construct plots using data imported from process_data.py
-plt.plot(sorted_unique_dates, max_line_jobs_per_day)
-plt.plot(sorted_unique_dates, max_total_jobs_per_day)
+plt.plot(x_axis, max_line_jobs_per_day)
+plt.plot(x_axis, max_total_jobs_per_day)
 
 # Formatting and labels
 plt.title('Daily Maximum Jobs Available')
