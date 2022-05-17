@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import lxml
 from datetime import date, time, datetime
 import io
@@ -8,15 +12,15 @@ import os
 import pathlib
 import time
 from secrets import username, password
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+
 
 url = 'https://www.rev.com/workspace/findwork'
 
+# Set up web driver #
 options = Options()
 options.headless = True
-driver = webdriver.Firefox(options=options, executable_path="C:\\Users\\james\\Desktop\\geckodriver", log_path="C:\\Users\james\\Desktop\\geckodriver.log")
+s = Service("C:\\Users\\james\\Desktop\\geckodriver")
+driver = webdriver.Firefox(service=s, options=options)
 driver.get(url)
 
 # Log in #
@@ -28,11 +32,11 @@ sign_in_xpath = '//*[@id="login-btn"]'
 driver.find_element(By.XPATH, username_xpath).send_keys(username)
 driver.find_element(By.XPATH, next_button_xpath).click()
 WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
-driver.find_element_by_xpath(sign_in_xpath).click()
+driver.find_element(By.XPATH, sign_in_xpath).click()
 # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
 # to solve issue of element not being scrolled into view
 
-time.sleep(10) # Will not find element without waiting
+time.sleep(3) # Will not find element without waiting
 
 # Retrieve job data #
 number_of_jobs_xpath = '/html/body/div[2]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
