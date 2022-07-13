@@ -12,6 +12,7 @@ import os
 import pathlib
 import time
 from secrets import username, password
+from win10toast import ToastNotifier
 
 
 url = 'https://www.rev.com/workspace/findwork'
@@ -36,7 +37,7 @@ driver.find_element(By.XPATH, sign_in_xpath).click()
 # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
 # to solve issue of element not being scrolled into view
 
-time.sleep(3) # Will not find element without waiting
+time.sleep(10) # Will not find element without waiting
 
 # Retrieve job data #
 number_of_jobs_xpath = '/html/body/div[2]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
@@ -58,5 +59,8 @@ file_name = "C:\\Users\\james\\Desktop\\Rev_Job_Trends\\rev_jobs.txt"
 with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
+toast = ToastNotifier()
+if (int(number_of_jobs) > 30):
+    toast.show_toast("Rev Jobs Available", "There are " + number_of_jobs + " total jobs, and " + number_of_line_jobs + " line jobs currently available.")
 
 # TODO: refactor/replaced deprecated commands for Selenium/BS4
