@@ -60,7 +60,8 @@ with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
 toast = ToastNotifier()
-if (int(number_of_jobs) > 30):
+if (int(number_of_jobs) > 45):
     toast.show_toast("Rev Jobs Available", "There are " + number_of_jobs + " total jobs, and " + number_of_line_jobs + " line jobs currently available.")
 
-# TODO: refactor/replaced deprecated commands for Selenium/BS4
+# TODO: Add number of jobs below X minutes in length; number of video jobs; number of audio jobs; number and percentage of jobs with 0 - X unclaims
+# TODO: Write documentation and set up to be portable/usable by other rev members
