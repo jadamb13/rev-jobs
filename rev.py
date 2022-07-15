@@ -46,8 +46,38 @@ number_of_line_jobs_xpath = '/html/body/div[2]/div/div[2]/div/div/div/div/div[2]
 number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
 number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
 
+# Set filter to ignore Verbatim jobs
+more_button_xpath = '/html/body/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[5]/div/div'
+driver.find_element(By.XPATH, more_button_xpath).click()
+verbatim_checkbox_xpath = '/html/body/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
+driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
+
+# Collects time length of all jobs available
+times = []
+
+all_time_divs = driver.find_elements(By.XPATH, "//div[@class='length-text']")
+for div in all_time_divs:
+    times.append(str(div.text))
+
+under_ten_count = 0
+under_five_count = 0
+for time in times:
+    if (int(time[:2]) < 10):
+        under_ten_count += 1
+    if (int(time[:2]) < 5):
+        under_five_count += 1
+
+# Data to be retrieved
+video_jobs = 0
+audio_jobs = 0
+number_of_jobs_with_zero_unclaims = 0
+number_of_jobs_with_one_or_two_unclaims = 0
+percentage_of_jobs_with_under_two_unclaims = 0
+
+
 driver.close()
 
+# Format data
 number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
 number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
 
@@ -60,8 +90,12 @@ with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
 toast = ToastNotifier()
+toast2 = ToastNotifier()
+
 if (int(number_of_jobs) > 45):
     toast.show_toast("Rev Jobs Available", "There are " + number_of_jobs + " total jobs, and " + number_of_line_jobs + " line jobs currently available.")
+
+toast2.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
 
 # TODO: Add number of jobs below X minutes in length; number of video jobs; number of audio jobs; number and percentage of jobs with 0 - X unclaims
 # TODO: Write documentation and set up to be portable/usable by other rev members
