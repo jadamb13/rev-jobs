@@ -70,6 +70,14 @@ for time in times:
 # Data to be retrieved
 video_jobs = 0
 audio_jobs = 0
+
+media_types = []
+all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
+all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
+audio_jobs = len(all_audio_divs)
+video_jobs = len(all_video_divs)
+
+
 number_of_jobs_with_zero_unclaims = 0
 number_of_jobs_with_one_or_two_unclaims = 0
 percentage_of_jobs_with_under_two_unclaims = 0
@@ -84,17 +92,23 @@ number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
 # Save information to file #
 time_and_date = datetime.now()
 string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
+hour_of_time_now = time_and_date.strftime("%I")
 file_name = "C:\\Users\\james\\Desktop\\Rev_Job_Trends\\rev_jobs.txt"
 
 with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
+
+### Send notifications to desktop (Windows 10)
+
+# Sends first notification with number of total jobs and line jobs; customized to send if greater than X number of total jobs
 toast = ToastNotifier()
 toast2 = ToastNotifier()
 
 if (int(number_of_jobs) > 45):
     toast.show_toast("Rev Jobs Available", "There are " + number_of_jobs + " total jobs, and " + number_of_line_jobs + " line jobs currently available.")
 
+# Send second notification with number of jobs under 5 and 10 minutes
 toast2.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
 
 # TODO: Add number of jobs below X minutes in length; number of video jobs; number of audio jobs; number and percentage of jobs with 0 - X unclaims
