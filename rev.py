@@ -68,20 +68,24 @@ for time in times:
         under_five_count += 1
 
 # Data to be retrieved
-video_jobs = 0
-audio_jobs = 0
-
 media_types = []
 all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
 all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
 audio_jobs = len(all_audio_divs)
 video_jobs = len(all_video_divs)
 
+unclaim_divs = driver.find_elements(By.XPATH, "//span[@class='unclaim-count']")
+unclaims = []
+zero_unclaim_count = 0
+for div in unclaim_divs:
+    unclaims.append(int(div.text))
+for unclaim in unclaims:
+    if (unclaim == 0):
+        zero_unclaim_count += 1
 
 number_of_jobs_with_zero_unclaims = 0
 number_of_jobs_with_one_or_two_unclaims = 0
 percentage_of_jobs_with_under_two_unclaims = 0
-
 
 driver.close()
 
@@ -109,7 +113,9 @@ if (int(number_of_jobs) > 45):
     toast.show_toast("Rev Jobs Available", "There are " + number_of_jobs + " total jobs, and " + number_of_line_jobs + " line jobs currently available.")
 
 # Send second notification with number of jobs under 5 and 10 minutes
-toast2.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
+if (under_ten_count > 5 or under_five_count > 2):
+    toast2.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
 
 # TODO: Add number of jobs below X minutes in length; number of video jobs; number of audio jobs; number and percentage of jobs with 0 - X unclaims
 # TODO: Write documentation and set up to be portable/usable by other rev members
+# TODO: Add option to show short list of jobs with certain attributes (zero unclaims, under X minutes, video file etc) and ability to claim from that notification/list
