@@ -67,13 +67,14 @@ for time in times:
     if (int(time[:2]) < 5):
         under_five_count += 1
 
-# Data to be retrieved
+# Retrieves number of audio and video jobs available
 media_types = []
 all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
 all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
 audio_jobs = len(all_audio_divs)
 video_jobs = len(all_video_divs)
 
+# Retrieves number of unclaims per job
 unclaim_divs = driver.find_elements(By.XPATH, "//span[@class='unclaim-count']")
 unclaims = []
 zero_unclaim_count = 0
@@ -83,7 +84,6 @@ for unclaim in unclaims:
     if (unclaim == 0):
         zero_unclaim_count += 1
 
-number_of_jobs_with_zero_unclaims = 0
 number_of_jobs_with_one_or_two_unclaims = 0
 percentage_of_jobs_with_under_two_unclaims = 0
 
