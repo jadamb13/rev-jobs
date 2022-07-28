@@ -90,9 +90,12 @@ for unclaim in unclaims:
     if (unclaim == 2):
         two_unclaim_count += 1
 
-number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
-percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
 
+number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
+if (len(unclaims > 0):
+    percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
+else:
+    percentage_of_jobs_with_under_two_unclaims = 0.0
 driver.close()
 
 # Format data
