@@ -19,7 +19,7 @@ url = 'https://www.rev.com/workspace/findwork'
 
 # Set up web driver #
 options = Options()
-options.headless = True
+options.headless = False
 s = Service("C:\\Users\\james\\Desktop\\geckodriver")
 driver = webdriver.Firefox(service=s, options=options)
 driver.get(url)
@@ -47,9 +47,10 @@ number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
 number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
 
 # Set filter to ignore Verbatim jobs
-more_button_xpath = '/html/body/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[5]/div/div'
+more_button_xpath = '/html/body/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
+#more_button_class = 'pl2 fa pr2 fa-chevron-down'
 driver.find_element(By.XPATH, more_button_xpath).click()
-verbatim_checkbox_xpath = '/html/body/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
+verbatim_checkbox_xpath = '/html/body/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
 driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
 
 # Collects time length of all jobs available
