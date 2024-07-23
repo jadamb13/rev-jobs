@@ -8,3 +8,7 @@ Program to keep track of available rev transcription jobs and send desktop notif
   - Local user directories are hardcoded and must be updated accordingly in code
   - Users are responsible for any alterations to code -- Rev contractors must use discretion not to save or transmit confidential information or personally identifiable information
   - Libraries to run: ToastNotifier from win10toast (for desktop notifications), selenium (for web driving) and lxml (html parsing)  
+
+### TODOs
+- Add macOS compatible notifier
+- Detect OS to determine type of notifications to send 
