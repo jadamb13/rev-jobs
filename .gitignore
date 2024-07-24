@@ -1,4 +1,4 @@
 __pycache__
 venv
-secrets.py
+src/secrets.py
 .idea/
