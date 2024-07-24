@@ -115,7 +115,8 @@ with open(file_name, "a+") as source_file:
 
 ### Send notifications to desktop (Windows 10)
 
-# Sends first notification with number of total jobs and line jobs; customized to send if greater than X number of total jobs
+# Sends first notification with number of total jobs and line jobs
+# Customized to send if greater than X number of total jobs
 toast = ToastNotifier()
 
 if (int(number_of_jobs) > 10):
@@ -127,6 +128,12 @@ if (int(number_of_jobs) > 10):
 if (under_ten_count > 5 or under_five_count > 2):
     toast.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
 
-# TODO: Add number of jobs below X minutes in length; number of video jobs; number of audio jobs; number and percentage of jobs with 0 - X unclaims
+# TODO: Add number of jobs:
+#       - below X minutes in length
+#       - number of video jobs
+#       - number of audio jobs
+#       - number and percentage of jobs with [0 - X] unclaims
 # TODO: Write documentation and set up to be portable/usable by other rev members
-# TODO: Add option to show short list of jobs with certain attributes (zero unclaims, under X minutes, video file etc) and ability to claim from that notification/list
+# TODO: Add option to show short list of jobs with certain attributes
+#           - (zero unclaims, under X minutes, video file etc)
+#                   - ability to claim from that notification/list
