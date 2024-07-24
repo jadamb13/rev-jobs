@@ -1,18 +1,18 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import lxml
+# import lxml
 from datetime import date, time, datetime
-import io
-import os
-import pathlib
+# import io
+# import os
+# import pathlib
 import time
 from secrets import username, password
-from win10toast import ToastNotifier
+# from win10toast import ToastNotifier
 
 
 url = 'https://www.rev.com/workspace/findwork'
@@ -112,11 +112,13 @@ file_name = "C:\\Users\\james\\Desktop\\Rev_Job_Trends\\rev_jobs.txt"
 with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
-
+'''
 ### Send notifications to desktop (Windows 10)
 
 # Sends first notification with number of total jobs and line jobs
 # Customized to send if greater than X number of total jobs
+
+
 toast = ToastNotifier()
 
 if (int(number_of_jobs) > 10):
@@ -137,3 +139,4 @@ if (under_ten_count > 5 or under_five_count > 2):
 # TODO: Add option to show short list of jobs with certain attributes
 #           - (zero unclaims, under X minutes, video file etc)
 #                   - ability to claim from that notification/list
+'''
