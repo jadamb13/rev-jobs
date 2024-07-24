@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
-from datetime import date, time, datetime
-from process_data import *
-import numpy as np
-import sys
+from datetime import datetime
+from src.process_data import *
 import os
 import shutil
 
