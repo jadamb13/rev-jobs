@@ -11,7 +11,7 @@ from datetime import date, time, datetime
 # import os
 # import pathlib
 import time
-from secrets import username, password
+from temp_auth import username, password
 # from win10toast import ToastNotifier
 
 

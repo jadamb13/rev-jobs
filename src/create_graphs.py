@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
-from src.process_data import *
+from src.data_processing import *
 import os
 import shutil
 
@@ -13,7 +13,7 @@ current_year = date.strftime("%Y")
 x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 sorted_unique_dates = list(sorted(unique_dates))
 
-# Construct plots using data imported from process_data.py
+# Construct plots using data imported from data_processing.py
 plt.plot(x_axis, max_line_jobs_per_day)
 plt.plot(x_axis, max_total_jobs_per_day)
 
@@ -34,14 +34,14 @@ if not os.path.exists(figure_filepath):
 plt.savefig(full_filepath)
 #plt.show()
 
-# Copy current rev.py information to file in last week's job data folder
+# Copy current data_retrieval.py information to file in last week's job data folder
 current_rev_file = os.path.join(os.getcwd(), 'Rev_Job_Trends', 'rev_jobs.txt')
 destination_of_rev_file_information = os.path.join(os.getcwd(), 'Rev_Job_Trends', str(current_year), str(current_month), str(date_today), 'job_data.txt')
 
 with open(destination_of_rev_file_information, 'w') as destination_file:
     shutil.copyfile(current_rev_file, destination_of_rev_file_information)
 
-# Erase contents of rev.py file to start blank for new week
+# Erase contents of data_retrieval.py file to start blank for new week
 with open(current_rev_file, 'r+') as f:
     f.truncate(0)
 

@@ -70,7 +70,7 @@ for row in f:
             daily_data[6][2].append(int(row[5].rstrip(os.linesep).rstrip('\t#')))
             daily_data[6][3].append(int(row[4]))
 
-### Gets unique dates and max job data for rev_graph.py
+### Gets unique dates and max job data for create_graphs.py
 unique_dates = set(dates)
 
 for day in daily_data:
@@ -87,7 +87,7 @@ for day in daily_data:
 
 
 # Remove leading placeholder '0' from line and total jobs lists (throws off index
-#   that is necessary for rev_graph.py)
+#   that is necessary for create_graphs.py)
 for day in daily_data:
     if (len(day[2]) > 1):
         day[2].pop(0)
