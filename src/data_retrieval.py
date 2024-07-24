@@ -11,7 +11,7 @@ from datetime import date, time, datetime
 # import os
 # import pathlib
 import time
-from temp_auth import username, password
+# from temp_auth import username, password
 # from win10toast import ToastNotifier
 
 
@@ -30,9 +30,9 @@ next_button_xpath = '//*[@id="next-btn"]'
 password_xpath = '//*[@id="Password"]'
 sign_in_xpath = '//*[@id="login-btn"]'
 
-driver.find_element(By.XPATH, username_xpath).send_keys(username)
+#driver.find_element(By.XPATH, username_xpath).send_keys(username)
 driver.find_element(By.XPATH, next_button_xpath).click()
-WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
+#WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
 driver.find_element(By.XPATH, sign_in_xpath).click()
 # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
 # to solve issue of element not being scrolled into view
