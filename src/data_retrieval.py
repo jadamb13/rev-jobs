@@ -26,11 +26,6 @@ def check_for_jobs():
     driver.get(config['url'])
 
     # Log in #
-    # username_xpath = '//*[@id="email-input"]'
-    # next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
-    # password_xpath = '//*[@id="password-input"]' # "password-input"
-    # sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
-
     driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
     driver.find_element(By.XPATH, config['next_button_xpath']).click()
     WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
@@ -40,27 +35,13 @@ def check_for_jobs():
 
     sleep(5) # Will not find element without waiting
     # Click "No, thanks" on notification pop up
-    # notifications_popup_xpath = '//*[@id="pushActionRefuse"]'
     driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
-    # Retrieve job data #
-    # number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
-    # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]
-    # class: "num-active-rows"
-    # number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
-    # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]
-    # class: "num-active-rows"
 
     number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
     number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
 
     # Set filter to ignore Verbatim jobs
-    more_button_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
-    # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i
-    #more_button_class = 'pl2 fa pr2 fa-chevron-down'
     driver.find_element(By.XPATH, config['more_button_xpath']).click()
-    verbatim_checkbox_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
-    # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input
-    # verbatim clickbox info: input type="checkbox"
     driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
     # Collects time length of all jobs available
