@@ -31,14 +31,14 @@ def check_for_jobs():
     # password_xpath = '//*[@id="password-input"]' # "password-input"
     # sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
 
-    driver.find_element(By.XPATH, config['username_xpath']).send_keys(username)
+    driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
     driver.find_element(By.XPATH, config['next_button_xpath']).click()
-    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(password)
+    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
     # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
     # to solve issue of element not being scrolled into view
 
-    sleep(10) # Will not find element without waiting
+    sleep(5) # Will not find element without waiting
     # Click "No, thanks" on notification pop up
     # notifications_popup_xpath = '//*[@id="pushActionRefuse"]'
     driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
@@ -66,7 +66,7 @@ def check_for_jobs():
     # Collects time length of all jobs available
     times = []
 
-    all_time_divs = driver.find_elements(By.XPATH, "//div[@class='length-text']")
+    all_time_divs = driver.find_elements(By.XPATH, config['time_divs_paths'])
     for div in all_time_divs:
         times.append(str(div.text))
 
@@ -80,13 +80,13 @@ def check_for_jobs():
 
     # Retrieves number of audio and video jobs available
     media_types = []
-    all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
-    all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
+    all_audio_divs = driver.find_elements(By.XPATH, config['audio_divs_paths'])
+    all_video_divs = driver.find_elements(By.XPATH, config['video_divs_paths'])
     audio_jobs = len(all_audio_divs)
     video_jobs = len(all_video_divs)
 
     # Retrieves number of unclaims per job
-    unclaim_divs = driver.find_elements(By.XPATH, "//span[@class='unclaim-count']")
+    unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_paths'])
     unclaims = []
     zero_unclaim_count = 0
     one_unclaim_count = 0
