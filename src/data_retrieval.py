@@ -11,7 +11,7 @@ from datetime import date, time, datetime
 # import os
 # import pathlib
 import time
-# from temp_auth import username, password
+from secrets import username, password
 # from win10toast import ToastNotifier
 
 
@@ -20,19 +20,19 @@ url = 'https://www.rev.com/workspace/findwork'
 # Set up web driver #
 options = Options()
 options.headless = False
-s = Service("C:\\Users\\james\\Desktop\\geckodriver")
+s = Service("/usr/local/bin/geckodriver")
 driver = webdriver.Firefox(service=s, options=options)
 driver.get(url)
 
 # Log in #
-username_xpath = '//*[@id="Email"]'
-next_button_xpath = '//*[@id="next-btn"]'
-password_xpath = '//*[@id="Password"]'
-sign_in_xpath = '//*[@id="login-btn"]'
+username_xpath = '//*[@id="email-input"]'
+next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
+password_xpath = '//*[@id="password-input"]' # "password-input"
+sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
 
-#driver.find_element(By.XPATH, username_xpath).send_keys(username)
+driver.find_element(By.XPATH, username_xpath).send_keys(username)
 driver.find_element(By.XPATH, next_button_xpath).click()
-#WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
+WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
 driver.find_element(By.XPATH, sign_in_xpath).click()
 # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
 # to solve issue of element not being scrolled into view
@@ -40,17 +40,24 @@ driver.find_element(By.XPATH, sign_in_xpath).click()
 time.sleep(10) # Will not find element without waiting
 
 # Retrieve job data #
-number_of_jobs_xpath = '/html/body/div[2]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
-number_of_line_jobs_xpath = '/html/body/div[2]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
+number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
+# new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]
+# class: "num-active-rows"
+number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
+# new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]
+# class: "num-active-rows"
 
 number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
 number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
 
 # Set filter to ignore Verbatim jobs
-more_button_xpath = '/html/body/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
+more_button_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
+# new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i
 #more_button_class = 'pl2 fa pr2 fa-chevron-down'
 driver.find_element(By.XPATH, more_button_xpath).click()
-verbatim_checkbox_xpath = '/html/body/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
+verbatim_checkbox_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
+# new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input
+# verbatim clickbox info: input type="checkbox"
 driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
 
 # Collects time length of all jobs available
@@ -107,7 +114,7 @@ number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
 time_and_date = datetime.now()
 string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
 hour_of_time_now = time_and_date.strftime("%I")
-file_name = "C:\\Users\\james\\Desktop\\Rev_Job_Trends\\rev_jobs.txt"
+file_name = "job_data.txt"
 
 with open(file_name, "a+") as source_file:
     source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
