@@ -16,12 +16,11 @@ from config.config import get_config
 
 def check_for_jobs():
     config = get_config()
-    url = 'https://www.rev.com/workspace/findwork'
 
     # Set up web driver #
     options = Options()
     options.headless = False
-    s = Service("/usr/local/bin/geckodriver")
+    s = Service(config['gecko_driver_path'])
     driver = webdriver.Firefox(service=s, options=options)
     driver.get(config['url'])
 
@@ -98,9 +97,8 @@ def check_for_jobs():
     time_and_date = datetime.now()
     string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
     hour_of_time_now = time_and_date.strftime("%I")
-    file_name = "../output/job_data.txt"
 
-    with open(file_name, "a+") as source_file:
+    with open(config['data_file_path'], "a+") as source_file:
         source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
 '''
