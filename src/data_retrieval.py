@@ -6,14 +6,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 # import lxml
-from datetime import date, time, datetime
+from datetime import datetime
 # import io
 # import os
 # import pathlib
 from time import sleep
 from secrets import username, password
 # from win10toast import ToastNotifier
-from config import get_config
+from config.config import get_config
 
 def check_for_jobs():
     config = get_config()
