@@ -10,114 +10,116 @@ from datetime import date, time, datetime
 # import io
 # import os
 # import pathlib
-import time
+from time import sleep
 from secrets import username, password
 # from win10toast import ToastNotifier
 
+def check_for_jobs():
+    url = 'https://www.rev.com/workspace/findwork'
 
-url = 'https://www.rev.com/workspace/findwork'
+    # Set up web driver #
+    options = Options()
+    options.headless = False
+    s = Service("/usr/local/bin/geckodriver")
+    driver = webdriver.Firefox(service=s, options=options)
+    driver.get(url)
 
-# Set up web driver #
-options = Options()
-options.headless = False
-s = Service("/usr/local/bin/geckodriver")
-driver = webdriver.Firefox(service=s, options=options)
-driver.get(url)
+    # Log in #
+    username_xpath = '//*[@id="email-input"]'
+    next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
+    password_xpath = '//*[@id="password-input"]' # "password-input"
+    sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
 
-# Log in #
-username_xpath = '//*[@id="email-input"]'
-next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
-password_xpath = '//*[@id="password-input"]' # "password-input"
-sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
+    driver.find_element(By.XPATH, username_xpath).send_keys(username)
+    driver.find_element(By.XPATH, next_button_xpath).click()
+    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
+    driver.find_element(By.XPATH, sign_in_xpath).click()
+    # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
+    # to solve issue of element not being scrolled into view
 
-driver.find_element(By.XPATH, username_xpath).send_keys(username)
-driver.find_element(By.XPATH, next_button_xpath).click()
-WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
-driver.find_element(By.XPATH, sign_in_xpath).click()
-# WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
-# to solve issue of element not being scrolled into view
+    sleep(10) # Will not find element without waiting
+    # Click "No, thanks" on notification pop up
+    notifications_popup_xpath = '//*[@id="pushActionRefuse"]'
+    driver.find_element(By.XPATH, notifications_popup_xpath).click()
+    # Retrieve job data #
+    number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
+    # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]
+    # class: "num-active-rows"
+    number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
+    # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]
+    # class: "num-active-rows"
 
-time.sleep(10) # Will not find element without waiting
+    number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
+    number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
 
-# Retrieve job data #
-number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
-# new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]
-# class: "num-active-rows"
-number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
-# new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]
-# class: "num-active-rows"
+    # Set filter to ignore Verbatim jobs
+    more_button_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
+    # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i
+    #more_button_class = 'pl2 fa pr2 fa-chevron-down'
+    driver.find_element(By.XPATH, more_button_xpath).click()
+    verbatim_checkbox_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
+    # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input
+    # verbatim clickbox info: input type="checkbox"
+    driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
 
-number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
-number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
+    # Collects time length of all jobs available
+    times = []
 
-# Set filter to ignore Verbatim jobs
-more_button_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
-# new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i
-#more_button_class = 'pl2 fa pr2 fa-chevron-down'
-driver.find_element(By.XPATH, more_button_xpath).click()
-verbatim_checkbox_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
-# new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input
-# verbatim clickbox info: input type="checkbox"
-driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
+    all_time_divs = driver.find_elements(By.XPATH, "//div[@class='length-text']")
+    for div in all_time_divs:
+        times.append(str(div.text))
 
-# Collects time length of all jobs available
-times = []
+    under_ten_count = 0
+    under_five_count = 0
+    for time in times:
+        if (int(time[:2]) < 10):
+            under_ten_count += 1
+        if (int(time[:2]) < 5):
+            under_five_count += 1
 
-all_time_divs = driver.find_elements(By.XPATH, "//div[@class='length-text']")
-for div in all_time_divs:
-    times.append(str(div.text))
+    # Retrieves number of audio and video jobs available
+    media_types = []
+    all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
+    all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
+    audio_jobs = len(all_audio_divs)
+    video_jobs = len(all_video_divs)
 
-under_ten_count = 0
-under_five_count = 0
-for time in times:
-    if (int(time[:2]) < 10):
-        under_ten_count += 1
-    if (int(time[:2]) < 5):
-        under_five_count += 1
-
-# Retrieves number of audio and video jobs available
-media_types = []
-all_audio_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon audio']")
-all_video_divs = driver.find_elements(By.XPATH, "//span[@class='media-type-icon video']")
-audio_jobs = len(all_audio_divs)
-video_jobs = len(all_video_divs)
-
-# Retrieves number of unclaims per job
-unclaim_divs = driver.find_elements(By.XPATH, "//span[@class='unclaim-count']")
-unclaims = []
-zero_unclaim_count = 0
-one_unclaim_count = 0
-two_unclaim_count = 0
-for div in unclaim_divs:
-    unclaims.append(int(div.text))
-for unclaim in unclaims:
-    if (unclaim == 0):
-        zero_unclaim_count += 1
-    if (unclaim == 1):
-        one_unclaim_count += 1
-    if (unclaim == 2):
-        two_unclaim_count += 1
+    # Retrieves number of unclaims per job
+    unclaim_divs = driver.find_elements(By.XPATH, "//span[@class='unclaim-count']")
+    unclaims = []
+    zero_unclaim_count = 0
+    one_unclaim_count = 0
+    two_unclaim_count = 0
+    for div in unclaim_divs:
+        unclaims.append(int(div.text))
+    for unclaim in unclaims:
+        if (unclaim == 0):
+            zero_unclaim_count += 1
+        if (unclaim == 1):
+            one_unclaim_count += 1
+        if (unclaim == 2):
+            two_unclaim_count += 1
 
 
-number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
-if (len(unclaims)) > 0:
-    percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
-else:
-    percentage_of_jobs_with_under_two_unclaims = 0.0
-driver.close()
+    number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
+    if (len(unclaims)) > 0:
+        percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
+    else:
+        percentage_of_jobs_with_under_two_unclaims = 0.0
+    driver.close()
 
-# Format data
-number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
-number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
+    # Format data
+    number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
+    number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
 
-# Save information to file #
-time_and_date = datetime.now()
-string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
-hour_of_time_now = time_and_date.strftime("%I")
-file_name = "job_data.txt"
+    # Save information to file #
+    time_and_date = datetime.now()
+    string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
+    hour_of_time_now = time_and_date.strftime("%I")
+    file_name = "job_data.txt"
 
-with open(file_name, "a+") as source_file:
-    source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
+    with open(file_name, "a+") as source_file:
+        source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
 '''
 ### Send notifications to desktop (Windows 10)
