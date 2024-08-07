@@ -13,8 +13,10 @@ from datetime import date, time, datetime
 from time import sleep
 from secrets import username, password
 # from win10toast import ToastNotifier
+from config import get_config
 
 def check_for_jobs():
+    config = get_config()
     url = 'https://www.rev.com/workspace/findwork'
 
     # Set up web driver #
@@ -22,45 +24,45 @@ def check_for_jobs():
     options.headless = False
     s = Service("/usr/local/bin/geckodriver")
     driver = webdriver.Firefox(service=s, options=options)
-    driver.get(url)
+    driver.get(config['url'])
 
     # Log in #
-    username_xpath = '//*[@id="email-input"]'
-    next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
-    password_xpath = '//*[@id="password-input"]' # "password-input"
-    sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
+    # username_xpath = '//*[@id="email-input"]'
+    # next_button_xpath = '//*[@id="submit-button"]' # "submit-button"
+    # password_xpath = '//*[@id="password-input"]' # "password-input"
+    # sign_in_xpath = '//*[@id="submit-button"]' # "submit-button"
 
-    driver.find_element(By.XPATH, username_xpath).send_keys(username)
-    driver.find_element(By.XPATH, next_button_xpath).click()
-    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, password_xpath))).send_keys(password)
-    driver.find_element(By.XPATH, sign_in_xpath).click()
+    driver.find_element(By.XPATH, config['username_xpath']).send_keys(username)
+    driver.find_element(By.XPATH, config['next_button_xpath']).click()
+    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(password)
+    driver.find_element(By.XPATH, config['sign_in_xpath']).click()
     # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
     # to solve issue of element not being scrolled into view
 
     sleep(10) # Will not find element without waiting
     # Click "No, thanks" on notification pop up
-    notifications_popup_xpath = '//*[@id="pushActionRefuse"]'
-    driver.find_element(By.XPATH, notifications_popup_xpath).click()
+    # notifications_popup_xpath = '//*[@id="pushActionRefuse"]'
+    driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
     # Retrieve job data #
-    number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
+    # number_of_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]'
     # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]
     # class: "num-active-rows"
-    number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
+    # number_of_line_jobs_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]'
     # new: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]
     # class: "num-active-rows"
 
-    number_of_jobs = driver.find_element(By.XPATH, number_of_jobs_xpath).text
-    number_of_line_jobs = driver.find_element(By.XPATH, number_of_line_jobs_xpath).text
+    number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
+    number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
 
     # Set filter to ignore Verbatim jobs
     more_button_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i'
     # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i
     #more_button_class = 'pl2 fa pr2 fa-chevron-down'
-    driver.find_element(By.XPATH, more_button_xpath).click()
+    driver.find_element(By.XPATH, config['more_button_xpath']).click()
     verbatim_checkbox_xpath = '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input'
     # new xpath: /html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input
     # verbatim clickbox info: input type="checkbox"
-    driver.find_element(By.XPATH, verbatim_checkbox_xpath).click()
+    driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
     # Collects time length of all jobs available
     times = []
@@ -116,7 +118,7 @@ def check_for_jobs():
     time_and_date = datetime.now()
     string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
     hour_of_time_now = time_and_date.strftime("%I")
-    file_name = "job_data.txt"
+    file_name = "../output/job_data.txt"
 
     with open(file_name, "a+") as source_file:
         source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
