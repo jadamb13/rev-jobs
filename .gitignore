@@ -3,3 +3,4 @@ venv
 .idea/
 job_data.txt
 secrets.py
+.env
