@@ -11,7 +11,6 @@ from datetime import datetime
 # import os
 # import pathlib
 from time import sleep
-from secrets import username, password
 # from win10toast import ToastNotifier
 from config.config import get_config
 
