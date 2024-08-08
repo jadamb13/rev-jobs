@@ -28,6 +28,7 @@ def check_for_jobs():
     driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
     driver.find_element(By.XPATH, config['next_button_xpath']).click()
     WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
+    sleep(5) # Added to see if it has any impact/prevents 2FA prompt
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
     # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
     # to solve issue of element not being scrolled into view
