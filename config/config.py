@@ -5,15 +5,19 @@ load_dotenv()
 
 def get_config():
     return {
+        # Web Driver
         'url': 'https://www.rev.com/workspace/findwork',
+        'gecko_driver_path': os.getenv('GECKO_DRIVER_PATH'),
+
+        # Login
         'username': os.getenv('REV_USERNAME'),
         'password': os.getenv('REV_PASSWORD'),
-        'gecko_driver_path': os.getenv('GECKO_DRIVER_PATH'),
-        'data_file_path': os.getenv('DATA_FILE_PATH'),
         'username_xpath': '//*[@id="email-input"]',
         'next_button_xpath': '//*[@id="submit-button"]',
         'password_xpath': '//*[@id="password-input"]',
         'sign_in_xpath': '//*[@id="submit-button"]',
+
+        # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
         'number_of_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]',
         'number_of_line_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]',
@@ -22,5 +26,8 @@ def get_config():
         'time_divs_xpath': "//div[@class='length-text']",
         'audio_divs_xpath': "//span[@class='media-type-icon audio']",
         'video_divs_xpath': "//span[@class='media-type-icon video']",
-        'unclaim_divs_xpath': "//span[@class='unclaim-count']"
+        'unclaim_divs_xpath': "//span[@class='unclaim-count']",
+
+        # Output
+        'data_file_path': os.getenv('DATA_FILE_PATH')
     }
