@@ -60,6 +60,34 @@ created in `create_graphs.py`
 
 ### Installation:
 
+To run this program, you can follow these steps:
+
+1. **Clone the Repository:** Start by cloning this repository to your local machine using the following command:
+
+   ```bash
+   git git@github.com:jadamb13/rev-jobs.git
+   ```
+2. Navigate to the Project Directory: Change your working directory to the project folder:
+
+    ```bash
+    cd rev-jobs
+    ```
+3. Python Environment: Ensure you have Python 3.12 or a higher version installed on your system. If not, you can 
+download it from Python's official website.
+
+4. Install Dependencies: Install the required Python libraries by running:
+
+```bash
+pip install -r requirements.txt
+```
+
+
+5. Run the Program: You can now execute the program by running the following command:
+
+```bash
+python main.py
+```
+
 ### Usage:
 
 ### Future Improvements:
