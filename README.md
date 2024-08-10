@@ -1,5 +1,5 @@
 ## Automated Transcription Job Notifier
-#### Program to automate filtering and retrieval of transcription job data using Selenium and send desktop notifications 
+Program to automate filtering and retrieval of transcription job data using Selenium and send desktop notifications 
 
 
 ### Project Overview
@@ -14,9 +14,18 @@ In its current iteration, the program uses `win10toast` to provide notifications
 
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` file with program dependencies, and the current `README.md` file.
 
-#### Directories:
+#### Directories and included files:
 
 - `config`:
+    - `config.py`
 - `output`:
+    - `job_data.txt`
 - `src`:
+    - `main.py`:
+    - `data_retrieval.py`:
+    - `data_processing.py`:
+    - `create_graphs.py`:
+    - `driver_setup.py`:
+    - `notifications.py`:
 - `tests`:
+
