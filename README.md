@@ -1,6 +1,6 @@
 ## Automated Transcription Job Notifier
-Program to automate filtering and retrieval of transcription job data using Selenium, send notifications with job 
-information to the user's desktop, and create historical reports of job availability using Matplotlib
+Automates retrieval of transcription job data using Selenium, sends desktop notifications with job information, 
+and creates historical reports of job availability using Matplotlib
 
 
 ### Project Overview
