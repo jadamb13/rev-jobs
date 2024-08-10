@@ -1,5 +1,6 @@
 ## Automated Transcription Job Notifier
-Program to automate filtering and retrieval of transcription job data using Selenium and send desktop notifications 
+Program to automate filtering and retrieval of transcription job data using Selenium and send notifications with job 
+information to the user's desktop
 
 
 ### Project Overview
