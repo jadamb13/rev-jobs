@@ -65,7 +65,7 @@ To run this program, you can follow these steps:
 1. **Clone the Repository:** Start by cloning this repository to your local machine using the following command:
 
    ```bash
-   git git@github.com:jadamb13/rev-jobs.git
+   git clone git@github.com:jadamb13/rev-jobs.git
    ```
 2. Navigate to the Project Directory: Change your working directory to the project folder:
 
