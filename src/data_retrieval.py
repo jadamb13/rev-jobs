@@ -4,7 +4,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 # import lxml
 from datetime import datetime
@@ -15,6 +15,7 @@ from time import sleep
 # from win10toast import ToastNotifier
 from config.config import get_config
 import random
+
 
 def check_for_jobs():
     config = get_config()
@@ -33,16 +34,22 @@ def check_for_jobs():
     driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
     sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['next_button_xpath']).click()
-    WebDriverWait(driver, random.randint(950000,1000000)).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
+
+    # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could
+    # -not-be-scrolled-into-view to solve issue of element not being scrolled into view
+    WebDriverWait(driver, random.randint(950000, 1000000)).until(
+        ec.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
     sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
 
     # Retrieve 2FA code from email
+    try:
+        driver.find_element(By.XPATH, config['two_factor_xpath'])
+    except NoSuchElementException:
+        print("No two-factor authentication div found.")
 
-    # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
-    # to solve issue of element not being scrolled into view
+    sleep(random.randint(10, 14))  # Will not find element without waiting
 
-    sleep(random.randint(5,12)) # Will not find element without waiting
     # Click "No, thanks" on notification pop up
     try:
         driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
@@ -67,9 +74,9 @@ def check_for_jobs():
         under_ten_count = 0
         under_five_count = 0
         for time in times:
-            if (int(time[:2]) < 10):
+            if int(time[:2]) < 10:
                 under_ten_count += 1
-            if (int(time[:2]) < 5):
+            if int(time[:2]) < 5:
                 under_five_count += 1
 
         # Retrieves number of audio and video jobs available
@@ -88,13 +95,12 @@ def check_for_jobs():
         for div in unclaim_divs:
             unclaims.append(int(div.text))
         for unclaim in unclaims:
-            if (unclaim == 0):
+            if unclaim == 0:
                 zero_unclaim_count += 1
-            if (unclaim == 1):
+            if unclaim == 1:
                 one_unclaim_count += 1
-            if (unclaim == 2):
+            if unclaim == 2:
                 two_unclaim_count += 1
-
 
         number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
         if (len(unclaims)) > 0:
@@ -117,6 +123,7 @@ def check_for_jobs():
     with open(config['data_file_path'], "a+") as source_file:
         source_file.write(string_time_and_date + " " + number_of_jobs + " " + number_of_line_jobs + "\n")
 
+
 '''
 ### Send notifications to desktop (Windows 10)
 
@@ -135,13 +142,5 @@ if (int(number_of_jobs) > 10):
 if (under_ten_count > 5 or under_five_count > 2):
     toast.show_toast("There are " + str(under_ten_count) + " jobs under 10 minutes and " + str(under_five_count) + " jobs under 5 minutes.")
 
-# TODO: Add number of jobs:
-#       - below X minutes in length
-#       - number of video jobs
-#       - number of audio jobs
-#       - number and percentage of jobs with [0 - X] unclaims
-# TODO: Write documentation and set up to be portable/usable by other rev members
-# TODO: Add option to show short list of jobs with certain attributes
-#           - (zero unclaims, under X minutes, video file etc)
-#                   - ability to claim from that notification/list
+
 '''

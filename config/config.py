@@ -18,6 +18,7 @@ def get_config():
         'next_button_xpath': '//*[@id="submit-button"]',
         'password_xpath': '//*[@id="password-input"]',
         'sign_in_xpath': '//*[@id="submit-button"]',
+        'two_factor_xpath': '//*[@id="mfa-code-input"]',
 
         # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
