@@ -57,8 +57,8 @@ file with program dependencies, and the current `README.md` file.
 - `src`:
     - `main.py`: entry point of the program
     - `data_retrieval.py`: logic to control web scraper and filtering of job data
-    - `data_processing.py`: logic to store job data from `job_data.txt` into data structures 
-for use in `create_graphs.py` visualizations
+    - `data_processing.py`: logic to store job data from `job_data.txt` into data structures for use in visualizations 
+created in `create_graphs.py`
     - `create_graphs.py`: logic to create Matplotlib visualizations at the end of each week
     - `driver_setup.py`: {Currently Empty} will be used to separate web scraper set up and tear down
     - `notifications.py`: {Currently Empty} will be used to separate notification logic
