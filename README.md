@@ -58,8 +58,6 @@ created in `create_graphs.py`
 
 ### Dependencies:
 
-**Python Standard Libraries:** The following Python standard libraries are used in this project:
-
 ### Installation:
 
 ### Usage:
