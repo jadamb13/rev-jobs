@@ -6,10 +6,12 @@ load_dotenv()
 def get_config():
     return {
         # Web Driver
-        'url': 'https://www.rev.com/workspace/findwork',
+        'url': 'https://www.rev.com',
         'gecko_driver_path': os.getenv('GECKO_DRIVER_PATH'),
+        'firefox_profile_path': os.getenv('FIREFOX_DRIVER_PATH'),
 
         # Login
+        'login_button_xpath': '//*[@id="navbar-login"]',
         'username': os.getenv('REV_USERNAME'),
         'password': os.getenv('REV_PASSWORD'),
         'username_xpath': '//*[@id="email-input"]',

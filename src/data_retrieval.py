@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
@@ -13,6 +14,7 @@ from datetime import datetime
 from time import sleep
 # from win10toast import ToastNotifier
 from config.config import get_config
+import random
 
 def check_for_jobs():
     config = get_config()
@@ -20,22 +22,32 @@ def check_for_jobs():
     # Set up web driver #
     options = Options()
     options.headless = False
+    options.set_preference("profile", str(config['firefox_profile_path']))
     s = Service(config['gecko_driver_path'])
     driver = webdriver.Firefox(service=s, options=options)
     driver.get(config['url'])
 
     # Log in #
+    sleep(random.randint(1, 5))
+    driver.find_element(By.XPATH, config['login_button_xpath']).click()
     driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
+    sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['next_button_xpath']).click()
-    WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
-    sleep(5) # Added to see if it has any impact/prevents 2FA prompt
+    WebDriverWait(driver, random.randint(950000,1000000)).until(EC.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
+    sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
+
+    # Retrieve 2FA code from email
+
     # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could-not-be-scrolled-into-view
     # to solve issue of element not being scrolled into view
 
-    sleep(5) # Will not find element without waiting
+    sleep(random.randint(5,12)) # Will not find element without waiting
     # Click "No, thanks" on notification pop up
-    driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
+    try:
+        driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
+    except NoSuchElementException:
+        print("News and Updates pop-up element not found. XPATH might be incorrect or doesn't exist.")
 
     number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
     number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
@@ -47,47 +59,50 @@ def check_for_jobs():
     # Collects time length of all jobs available
     times = []
 
-    all_time_divs = driver.find_elements(By.XPATH, config['time_divs_paths'])
-    for div in all_time_divs:
-        times.append(str(div.text))
+    try:
+        all_time_divs = driver.find_elements(By.XPATH, config['time_divs_xpath'])
+        for div in all_time_divs:
+            times.append(str(div.text))
 
-    under_ten_count = 0
-    under_five_count = 0
-    for time in times:
-        if (int(time[:2]) < 10):
-            under_ten_count += 1
-        if (int(time[:2]) < 5):
-            under_five_count += 1
+        under_ten_count = 0
+        under_five_count = 0
+        for time in times:
+            if (int(time[:2]) < 10):
+                under_ten_count += 1
+            if (int(time[:2]) < 5):
+                under_five_count += 1
 
-    # Retrieves number of audio and video jobs available
-    media_types = []
-    all_audio_divs = driver.find_elements(By.XPATH, config['audio_divs_paths'])
-    all_video_divs = driver.find_elements(By.XPATH, config['video_divs_paths'])
-    audio_jobs = len(all_audio_divs)
-    video_jobs = len(all_video_divs)
+        # Retrieves number of audio and video jobs available
+        media_types = []
+        all_audio_divs = driver.find_elements(By.XPATH, config['audio_divs_paths'])
+        all_video_divs = driver.find_elements(By.XPATH, config['video_divs_paths'])
+        audio_jobs = len(all_audio_divs)
+        video_jobs = len(all_video_divs)
 
-    # Retrieves number of unclaims per job
-    unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_paths'])
-    unclaims = []
-    zero_unclaim_count = 0
-    one_unclaim_count = 0
-    two_unclaim_count = 0
-    for div in unclaim_divs:
-        unclaims.append(int(div.text))
-    for unclaim in unclaims:
-        if (unclaim == 0):
-            zero_unclaim_count += 1
-        if (unclaim == 1):
-            one_unclaim_count += 1
-        if (unclaim == 2):
-            two_unclaim_count += 1
+        # Retrieves number of unclaims per job
+        unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_paths'])
+        unclaims = []
+        zero_unclaim_count = 0
+        one_unclaim_count = 0
+        two_unclaim_count = 0
+        for div in unclaim_divs:
+            unclaims.append(int(div.text))
+        for unclaim in unclaims:
+            if (unclaim == 0):
+                zero_unclaim_count += 1
+            if (unclaim == 1):
+                one_unclaim_count += 1
+            if (unclaim == 2):
+                two_unclaim_count += 1
 
 
-    number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
-    if (len(unclaims)) > 0:
-        percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
-    else:
-        percentage_of_jobs_with_under_two_unclaims = 0.0
+        number_of_jobs_with_one_or_two_unclaims = one_unclaim_count + two_unclaim_count
+        if (len(unclaims)) > 0:
+            percentage_of_jobs_with_under_two_unclaims = (number_of_jobs_with_one_or_two_unclaims / len(unclaims))
+        else:
+            percentage_of_jobs_with_under_two_unclaims = 0.0
+    except NoSuchElementException:
+        print("Time div elements not found. XPATH might be incorrect or doesn't exist.")
     driver.close()
 
     # Format data
