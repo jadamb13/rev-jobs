@@ -29,15 +29,7 @@ This data is currently used by `create_graphs.py` to create visualizations of jo
 #### Ongoing development considerations:
 In its current iteration, the program uses `win10toast` to provide notifications for Windows 10 operating systems. 
 However, current refactoring will replace `win10toast` with `pyler` for cross-platform (Windows, macOS, Linux) 
-notifications. 
-
-#### Future project goals and feature development:
-  - Create cross-platform standalone executable with installer and user guide
-  - Implement a machine learning model to predict future job availability
-  - Integrate database for persistent job data storage to train ML model and create historical job availability reports
-  - Front-end dashboard with authentication to view job availability reports and track long-term user metrics
-  - Ability to claim jobs directly from desktop notifications
-  - Auto-claim feature based on user-defined parameters
+notifications.
 
 ### Project Structure
 
@@ -64,3 +56,20 @@ created in `create_graphs.py`
     - `notifications.py`: {Currently Empty} will be used to separate notification logic
 - `tests`: {Currently Empty} will be used to store unit tests
 
+### Dependencies:
+
+**Python Standard Libraries:** The following Python standard libraries are used in this project:
+
+### Installation:
+
+### Usage:
+
+### Future Improvements: 
+
+#### Future project goals and feature development:
+  - Create cross-platform standalone executable with installer and user guide
+  - Implement a machine learning model to predict future job availability
+  - Integrate database for persistent job data storage to train ML model and create historical job availability reports
+  - Front-end dashboard with authentication to view job availability reports and track long-term user metrics
+  - Ability to claim jobs directly from desktop notifications
+  - Auto-claim feature based on user-defined parameters
