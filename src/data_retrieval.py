@@ -74,13 +74,13 @@ def check_for_jobs():
 
         # Retrieves number of audio and video jobs available
         media_types = []
-        all_audio_divs = driver.find_elements(By.XPATH, config['audio_divs_paths'])
-        all_video_divs = driver.find_elements(By.XPATH, config['video_divs_paths'])
+        all_audio_divs = driver.find_elements(By.XPATH, config['audio_divs_xpath'])
+        all_video_divs = driver.find_elements(By.XPATH, config['video_divs_xpath'])
         audio_jobs = len(all_audio_divs)
         video_jobs = len(all_video_divs)
 
         # Retrieves number of unclaims per job
-        unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_paths'])
+        unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_xpath'])
         unclaims = []
         zero_unclaim_count = 0
         one_unclaim_count = 0
