@@ -62,12 +62,10 @@ created in `create_graphs.py`
 
 ### Usage:
 
-### Future Improvements: 
-
-#### Future project goals and feature development:
-  - Create cross-platform standalone executable with installer and user guide
-  - Implement a machine learning model to predict future job availability
-  - Integrate database for persistent job data storage to train ML model and create historical job availability reports
+### Future Improvements:
+  - Cross-platform standalone executable with installer and user guide
+  - Machine learning model to predict future job availability
+  - Database integration for persistent job data storage to train ML model and create historical job availability reports
   - Front-end dashboard with authentication to view job availability reports and track long-term user metrics
   - Ability to claim jobs directly from desktop notifications
   - Auto-claim feature based on user-defined parameters
