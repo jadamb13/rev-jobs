@@ -1,6 +1,6 @@
 ## Automated Transcription Job Notifier
-Program to automate filtering and retrieval of transcription job data using Selenium and send notifications with job 
-information to the user's desktop
+Program to automate filtering and retrieval of transcription job data using Selenium, send notifications with job 
+information to the user's desktop, and create historical reports of job availability using Matplotlib
 
 
 ### Project Overview
@@ -81,7 +81,6 @@ download it from Python's official website.
 ```bash
 pip install -r requirements.txt
 ```
-
 
 5. Run the Program: You can now execute the program by running the following command:
 
