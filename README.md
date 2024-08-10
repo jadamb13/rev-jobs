@@ -20,9 +20,9 @@ The program also saves job information to the `job_data.txt` file located in the
 The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time format} {AM/PM} {Total Jobs} 
 {Line Jobs} as shown below:
 
-'''
+```
 Wednesday 08/07 03:58 PM 23 0
-'''
+```
 
 This data is currently used by `create_graphs.py` to create visualizations of job availability over the course of a week.
 
