@@ -53,8 +53,9 @@ file with program dependencies, and the current `README.md` file.
     - `data_processing.py`: logic to store job data from `job_data.txt` into data structures for use in visualizations 
 created in `create_graphs.py`
     - `create_graphs.py`: logic to create Matplotlib visualizations at the end of each week
-    - `driver_setup.py`: {Currently Empty} will be used to separate web scraper set up and tear down
-    - `notifications.py`: {Currently Empty} will be used to separate notification logic
+    - `driver_setup.py`: responsible for web scraper set up and tear down
+    - `notification.py`: handles logic for sending notifications to desktop
+    - `auth.py`: handles logic for logging into Rev
 - `tests`: {Currently Empty} will be used to store unit tests
 
 ### Dependencies:

@@ -1,7 +1,7 @@
 from driver_setup import setup_driver, teardown_driver
 from auth import login
 from data_retrieval import apply_filters, collect_job_data
-from notifications import send_notification
+from notification import send_notification
 from config.config import get_config
 from datetime import datetime
 
