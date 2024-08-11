@@ -4,6 +4,8 @@ from data_retrieval import apply_filters, collect_job_data
 from notification import send_notification
 from config.config import get_config
 from datetime import datetime
+from time import sleep
+import random
 
 
 def main():
@@ -19,18 +21,17 @@ def main():
         with open(config['data_file_path'], "a+") as source_file:
             source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
 
-        '''
-        # Send notifications
-        if int(number_of_jobs) > 10:
-            send_notification("Rev Jobs Available",
-                              f"There are {number_of_jobs} total jobs, and {number_of_line_jobs} line jobs currently available.")
-            send_notification("Job Details",
-                              f"Jobs with 0 unclaims: {zero_unclaim_count}/{len(unclaims)} | Jobs with 1-2 unclaims: {number_of_jobs_with_one_or_two_unclaims}/{len(unclaims)} ({percentage_of_jobs_with_under_two_unclaims * 100}%)")
+        # Send notifications --> Only send notifications if > X jobs (of specified type) available
+        # if int(number_of_jobs) > 10:
+        send_notification("Rev Jobs Available",
+                          f"There are {data['number_of_jobs']} total jobs, and {data['number_of_line_jobs']} line jobs currently available.")
+        send_notification("Job Details",
+                          f"Jobs with 0 unclaims: {data['zero_unclaim_count']} | Jobs with 1-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']}")
 
-        if under_ten_count > 5 or under_five_count > 2:
-            send_notification("Job Times",
-                              f"There are {under_ten_count} jobs under 10 minutes and {under_five_count} jobs under 5 minutes.")
-    '''
+        # if under_ten_count > 5 or under_five_count > 2:
+        send_notification("Job Times",
+                          f"There are {data['under_ten_count']} jobs under 10 minutes and {['under_five_count']} jobs under 5 minutes.")
+        sleep(random.randint(10, 15))
     finally:
         teardown_driver(driver)
 

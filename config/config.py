@@ -23,10 +23,14 @@ def get_config():
 
         # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
-        'number_of_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[1]/span[2]',
-        'number_of_line_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]',
-        'more_button_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i',
-        'verbatim_checkbox_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input',
+        'number_of_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
+                                '/div/div[1]/div[1]/div/span[1]/a[1]/span[2]',
+        'number_of_line_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div'
+                                     '/div[3]/div/div[1]/div[1]/div/span[1]/a[3]/span[2]',
+        'more_button_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
+                             '/div/div[1]/div[2]/div/div[1]/div[5]/div/div/div/i',
+        'verbatim_checkbox_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/'
+                                   'div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/label/input',
         'time_divs_xpath': "//div[@class='length-text']",
         'audio_divs_xpath': "//span[@class='media-type-icon audio']",
         'video_divs_xpath': "//span[@class='media-type-icon video']",

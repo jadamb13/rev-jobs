@@ -6,6 +6,7 @@ from config.config import get_config
 from time import sleep
 import random
 
+
 def login(driver):
     config = get_config()
     # Log in #
@@ -22,7 +23,7 @@ def login(driver):
         ec.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
     sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
-    sleep(random.randint(30,45))
+    sleep(random.randint(30, 45))
     # Retrieve 2FA code from email
     try:
         driver.find_element(By.XPATH, config['two_factor_xpath'])
