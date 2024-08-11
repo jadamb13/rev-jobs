@@ -10,7 +10,7 @@ from output.output import save_data_to_file
 
 
 def main():
-    config = get_config()
+
     driver = setup_driver()
     try:
         login(driver)
@@ -27,7 +27,7 @@ def main():
 
         # if under_ten_count > 5 or under_five_count > 2:
         send_notification("Job Times",
-                          f"There are {data['under_ten_count']} jobs under 10 minutes and {['under_five_count']} jobs under 5 minutes.")
+                          f"There are {data['under_ten_count']} jobs under 10 minutes and {data['under_five_count']} jobs under 5 minutes.")
         sleep(random.randint(10, 15))
     finally:
         teardown_driver(driver)

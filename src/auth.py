@@ -8,7 +8,9 @@ import random
 
 
 def login(driver):
+
     config = get_config()
+
     # Log in #
     driver.get(config['url'])
     sleep(random.randint(1, 5))
@@ -24,8 +26,18 @@ def login(driver):
     sleep(random.randint(1, 5))
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
     sleep(random.randint(30, 45))
-    # Retrieve 2FA code from email
+
+    # Check for 2FA div
     try:
         driver.find_element(By.XPATH, config['two_factor_xpath'])
     except NoSuchElementException:
         print("No two-factor authentication div found.")
+
+    # Wait for notification pop-up
+    sleep(random.randint(10, 14))  # Will not find element without waiting
+
+    # Click "No, thanks" on notification pop up (if showing)
+    try:
+        driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
+    except NoSuchElementException:
+        print("News and Updates pop-up element not found. XPATH might be incorrect or doesn't exist.")

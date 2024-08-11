@@ -19,15 +19,6 @@ def apply_filters(driver):
 def collect_times(driver):
     config = get_config()
 
-    # Wait for notification pop-up
-    sleep(random.randint(10, 14))  # Will not find element without waiting
-
-    # Click "No, thanks" on notification pop up (if showing)
-    try:
-        driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
-    except NoSuchElementException:
-        print("News and Updates pop-up element not found. XPATH might be incorrect or doesn't exist.")
-
     # Collects time length of all jobs available
     times = []
     all_time_divs = driver.find_elements(By.XPATH, config['time_divs_xpath'])
