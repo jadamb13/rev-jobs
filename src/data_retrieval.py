@@ -1,20 +1,7 @@
-from lib2to3.pgen2 import driver
-
-from selenium import webdriver
 from selenium.common import NoSuchElementException
-# from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-# import lxml
 from datetime import datetime
-# import io
-# import os
-# import pathlib
 from time import sleep
-# from win10toast import ToastNotifier
 from config.config import get_config
 import random
 

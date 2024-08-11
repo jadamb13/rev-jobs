@@ -21,7 +21,7 @@ def main():
 
         '''
         # Send notifications
-        if int(number_of_jobs) < 10:
+        if int(number_of_jobs) > 10:
             send_notification("Rev Jobs Available",
                               f"There are {number_of_jobs} total jobs, and {number_of_line_jobs} line jobs currently available.")
             send_notification("Job Details",
