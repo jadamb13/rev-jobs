@@ -3,9 +3,8 @@ from src.data_retrieval import collect_job_data
 from datetime import datetime
 
 
-def save_data_to_file(driver):
+def save_data_to_file(data):
     config = get_config()
-    data = collect_job_data(driver)
 
     # Format and save data
     time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
