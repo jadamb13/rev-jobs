@@ -27,11 +27,6 @@ Wednesday 08/07 03:58 PM 23 0
 
 This data is currently used by `create_graphs.py` to create visualizations of job availability over the course of a week.
 
-#### Ongoing development considerations:
-In its current iteration, the program uses `win10toast` to provide notifications for Windows 10 operating systems. 
-However, current refactoring will replace `win10toast` with `pyler` for cross-platform (Windows, macOS, Linux) 
-notifications.
-
 ### Project Structure
 
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` 
