@@ -37,7 +37,7 @@ file with program dependencies, and the current `README.md` file.
 - `config`: 
     - `config.py`: file to store configuration data such as:
       - URL to access job dashboard
-      - File paths to drivers for Firefox web driver and output file(s)
+      - File path to `geckodriver` driver for Firefox web driver and output file(s)
       - Rev username and password (stored and accessed from local `.env` file)
       - XPATHs for page elements used by Selenium
 - `output`:
