@@ -83,16 +83,6 @@ def collect_job_data(driver):
     return job_data
 
 
-def save_data_to_file(driver):
-    config = get_config()
-    data = collect_job_data(driver)
 
-    # Save information to file
-    time_and_date = datetime.now()
-    string_time_and_date = time_and_date.strftime("%A %m/%d %I:%M %p")
-
-    with open(config['data_file_path'], "a+") as source_file:
-        source_file.write(
-            string_time_and_date + " " + data['number_of_jobs'] + " " + data['number_of_line_jobs'] + "\n")
 
 

@@ -1,0 +1,13 @@
+from config.config import get_config
+from src.data_retrieval import collect_job_data
+from datetime import datetime
+
+
+def save_data_to_file(driver):
+    config = get_config()
+    data = collect_job_data(driver)
+
+    # Format and save data
+    time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
+    with open(config['data_file_path'], "a+") as source_file:
+        source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")

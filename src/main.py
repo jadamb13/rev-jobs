@@ -6,6 +6,7 @@ from config.config import get_config
 from datetime import datetime
 from time import sleep
 import random
+from output.output import save_data_to_file
 
 
 def main():
@@ -15,11 +16,7 @@ def main():
         login(driver)
         apply_filters(driver)
         data = collect_job_data(driver)
-
-        # Format and save data
-        time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
-        with open(config['data_file_path'], "a+") as source_file:
-            source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
+        save_data_to_file(driver)
 
         # Send notifications --> Only send notifications if > X jobs (of specified type) available
         # if int(number_of_jobs) > 10:
