@@ -1,9 +1,7 @@
-from selenium.common import NoSuchElementException
+
 from selenium.webdriver.common.by import By
-from datetime import datetime
-from time import sleep
 from config.config import get_config
-import random
+
 
 
 def apply_filters(driver):

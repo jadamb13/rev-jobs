@@ -1,5 +1,4 @@
 from config.config import get_config
-from src.data_retrieval import collect_job_data
 from datetime import datetime
 
 
