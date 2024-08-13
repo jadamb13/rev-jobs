@@ -95,4 +95,3 @@ for day in daily_data:
         day[3].pop(0)
 
 
-# TODO: Add a method that will aggregate data over specified time period for larger than weekly graph
