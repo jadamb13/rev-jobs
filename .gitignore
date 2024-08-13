@@ -3,3 +3,4 @@ venv
 .idea/
 job_data.txt
 .env
+job_trends.png

@@ -12,7 +12,7 @@ daily_data = [ ['Monday', [], [0], [0], 0, 0, ''], ['Tuesday', [], [0], [0], 0, 
              ['Thursday', [], [0], [0], 0, 0, ''], ['Friday', [], [0], [0], 0, 0, ''], ['Saturday', [], [0], [0], 0, 0, ''],
              ['Sunday', [], [0], [0], 0, 0, ''] ]
 
-f = open('Rev_Job_Trends/rev_jobs.txt', 'r')
+f = open(os.path.join(os.getcwd(), '../output/job_data.txt'), 'r')
 
 for row in f:
 
