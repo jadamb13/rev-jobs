@@ -90,7 +90,7 @@ python main.py
   - Cross-platform standalone executable with installer and user guide
   - Machine learning model to predict future job availability
   - Database integration for persistent job data storage:
-    - Use data to train ML model
+    - Train ML model
     - Create historical job availability reports
   - Front-end dashboard with authentication:
     - View job availability reports
