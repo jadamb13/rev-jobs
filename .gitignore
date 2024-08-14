@@ -4,3 +4,4 @@ venv
 job_data.txt
 .env
 maximum_jobs_daily.png
+all_jobs.png

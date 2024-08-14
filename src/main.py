@@ -2,7 +2,7 @@ from driver_setup import setup_driver, teardown_driver
 from auth import login
 from data_retrieval import apply_filters, collect_job_data
 from notification import send_notification
-from output.output import save_data_to_file
+from src.output import save_data_to_file
 
 
 def main():

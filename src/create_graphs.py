@@ -25,24 +25,22 @@ plt.grid(True)
 plt.legend()
 
 # Creates local directories if needed and saves graph image
-figure_filepath = os.path.join(os.getcwd(), '../output')
-file_name = 'maximum_jobs_daily.png'
-full_filepath = figure_filepath + '/' + file_name
-if not os.path.exists(figure_filepath):
-    os.makedirs(figure_filepath)
+destination_directory = os.path.join(os.getcwd(), '../output')
+max_jobs_file_name = 'maximum_jobs_daily.png'
+max_jobs_full_filepath = destination_directory + '/' + max_jobs_file_name
+if not os.path.exists(destination_directory):
+    os.makedirs(destination_directory)
 
-# Actions to perform with the information
-plt.savefig(full_filepath)
-# plt.show()
+plt.savefig(max_jobs_full_filepath)
 
-import datetime as dt
 
 # Function to convert time to a fraction of a day
 def time_to_fraction_of_day(time_str):
-    time_obj = dt.datetime.strptime(time_str, '%I:%M %p')  # Convert string to time object
+    time_obj = datetime.strptime(time_str, '%I:%M %p')  # Convert string to time object
     total_minutes = time_obj.hour * 60 + time_obj.minute  # Calculate total minutes from midnight
     fraction_of_day = total_minutes / (24 * 60)  # Convert to fraction of a day
     return fraction_of_day
+
 
 # Initialize lists to store data for plotting
 day_indices = []
@@ -94,6 +92,8 @@ for i, day in enumerate(days):
 
 plt.legend()
 
-# Show the plot
+# Save the plot
 plt.tight_layout()
-plt.show()
+all_job_data_filename = 'all_jobs.png'
+all_jobs_full_filepath = destination_directory + '/' + all_job_data_filename
+plt.savefig(all_jobs_full_filepath)

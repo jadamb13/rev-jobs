@@ -14,21 +14,19 @@ def apply_filters(driver):
     driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
 
-def collect_times(driver):
+def collect_job_lengths(driver):
     config = get_config()
 
     # Collects time length of all jobs available
-    times = []
+    job_lengths = []
     all_time_divs = driver.find_elements(By.XPATH, config['time_divs_xpath'])
     for time_div in all_time_divs:
-        times.append(str(time_div.text))
-    return times
+        job_lengths.append(str(time_div.text))
+    return job_lengths
 
 
 def collect_job_data(driver):
     config = get_config()
-    times = collect_times(driver)
-    job_data = {}
 
     # Total jobs and total line jobs
     number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
@@ -39,8 +37,9 @@ def collect_job_data(driver):
     number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
 
     # Jobs under ten and five minutes
-    under_ten_count = str(sum(1 for t in times if int(t[:2]) < 10))
-    under_five_count = str(sum(1 for t in times if int(t[:2]) < 5))
+    job_lengths = collect_job_lengths(driver)
+    jobs_under_ten_minutes = str(sum(1 for t in job_lengths if int(t[:2]) < 10))
+    jobs_under_five_minutes = str(sum(1 for t in job_lengths if int(t[:2]) < 5))
 
     # Audio and video jobs
     media_types = {}  # Dict to store future media types and counts
@@ -58,16 +57,14 @@ def collect_job_data(driver):
     number_of_jobs_with_less_than_two_unclaims = int(one_unclaim_count) + int(two_unclaim_count) + int(zero_unclaim_count)
 
     # Store job data in dict
-    job_data['under_ten_count'] = under_ten_count
-    job_data['under_five_count'] = under_five_count
-    job_data['audio_jobs'] = number_of_audio_jobs
-    job_data['video_jobs'] = number_of_video_jobs
-    job_data['zero_unclaim_count'] = zero_unclaim_count
-    job_data['one_unclaim_count'] = one_unclaim_count
-    job_data['two_unclaim_count'] = two_unclaim_count
-    job_data['number_of_jobs_with_less_than_two_unclaims'] = number_of_jobs_with_less_than_two_unclaims
-    job_data['number_of_jobs'] = number_of_jobs
-    job_data['number_of_line_jobs'] = number_of_line_jobs
+    job_data = {
+        'under_ten_count': jobs_under_ten_minutes, 'under_five_count': jobs_under_five_minutes,
+        'audio_jobs': number_of_audio_jobs, 'video_jobs': number_of_video_jobs,
+        'zero_unclaim_count': zero_unclaim_count, 'one_unclaim_count': one_unclaim_count,
+        'two_unclaim_count': two_unclaim_count,
+        'number_of_jobs_with_less_than_two_unclaims': number_of_jobs_with_less_than_two_unclaims,
+        'number_of_jobs': number_of_jobs, 'number_of_line_jobs': number_of_line_jobs
+    }
 
     return job_data
 
