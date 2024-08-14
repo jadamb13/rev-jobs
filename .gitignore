@@ -3,4 +3,4 @@ venv
 .idea/
 job_data.txt
 .env
-job_trends.png
+maximum_jobs_daily.png
