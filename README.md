@@ -89,9 +89,11 @@ python main.py
 ### Future Improvements:
   - Cross-platform standalone executable with installer and user guide
   - Machine learning model to predict future job availability
-  - Database integration for persistent job data storage to:
-    - train ML model
-    - create historical job availability reports
-  - Front-end dashboard with authentication to view job availability reports and track long-term user metrics
+  - Database integration for persistent job data storage:
+    - Use data to train ML model
+    - Create historical job availability reports
+  - Front-end dashboard with authentication:
+    - View job availability reports
+    - Track long-term user metrics
   - Ability to claim jobs directly from desktop notifications
   - Auto-claim feature based on user-defined parameters
