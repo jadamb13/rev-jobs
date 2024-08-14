@@ -32,11 +32,9 @@ unique_dates = set(dates)
 max_total_jobs_per_day = []
 max_line_jobs_per_day = []
 
-
 for day_data in daily_data.values():
     max_total_jobs_per_day.append(day_data['total_max'])
     max_line_jobs_per_day.append(day_data['line_max'])
-
 
 # Remove leading placeholder '0' from line and total jobs lists
 for day_data in daily_data.values():
