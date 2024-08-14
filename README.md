@@ -42,6 +42,8 @@ file with program dependencies, and the current `README.md` file.
       - XPATHs for page elements used by Selenium
 - `output`:
     - `job_data.txt`: stores job data from each run of the program
+    - `all_jobs.png`: scatter plot showing jobs available for each run of the program (by day of the week)
+    - `maximum_jobs_daily.png`: line plot showing maximum jobs available each day of the week
 - `src`:
     - `main.py`: entry point of the program
     - `data_retrieval.py`: logic to control web scraper and filtering of job data
@@ -51,6 +53,7 @@ created in `create_graphs.py`
     - `driver_setup.py`: responsible for web scraper set up and tear down
     - `notification.py`: handles logic for sending notifications to desktop
     - `auth.py`: handles logic for logging into Rev
+    - `output.py`: logic for saving job data to files
 - `tests`: {Currently Empty} will be used to store unit tests
 
 ### Dependencies:
