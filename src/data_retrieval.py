@@ -1,7 +1,5 @@
-
 from selenium.webdriver.common.by import By
 from config.config import get_config
-
 
 
 def apply_filters(driver):

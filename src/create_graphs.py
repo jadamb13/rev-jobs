@@ -70,7 +70,7 @@ plt.scatter(day_indices, atj_combined, color='red', label='Total Jobs Available'
 
 # Customize the plot
 plt.title('Job Availability Throughout the Week with Time Distribution')
-plt.xlabel('Day of the Week with Time of Day')
+plt.xlabel('Day of the Week')
 plt.ylabel('Number of Jobs Available')
 
 # Set x-ticks for each day with 3-hour increments
