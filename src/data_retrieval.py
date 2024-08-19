@@ -5,9 +5,6 @@ from config.config import get_config
 def apply_filters(driver):
     config = get_config()
 
-    # No Verbatim or Rush jobs
-
-
     # Open "More" menu to select filters
     driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
