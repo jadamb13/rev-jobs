@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from config.config import get_config
 from time import sleep
 import random
+import sys
 
 
 def random_sleep(min_time=1, max_time=5):
@@ -29,16 +30,18 @@ def login(driver):
         ec.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
     random_sleep()
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
-    random_sleep(20, 35)
+    random_sleep(3, 6)
 
     # Check for 2FA div
     try:
         driver.find_element(By.XPATH, config['two_factor_xpath'])
+        print("Two-factor required.")
+        sys.exit(1)
     except NoSuchElementException:
         print("No two-factor authentication div found.")
 
     # Wait for notification pop-up
-    random_sleep(10, 14)  # Will not find element without waiting
+    random_sleep(4, 8)  # Will not find element without waiting
 
     # Click "No, thanks" on notification pop up (if showing)
     try:

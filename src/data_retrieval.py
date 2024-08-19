@@ -5,11 +5,12 @@ from config.config import get_config
 def apply_filters(driver):
     config = get_config()
 
+    driver.find_element(By.XPATH, config['no_verbatim_or_rush_button']).click()
     # Open "More" menu to select filters
-    driver.find_element(By.XPATH, config['more_button_xpath']).click()
+    #driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
     # De-select "Verbatim" to remove verbatim category jobs
-    driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
+    #driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
 
 def collect_job_lengths(driver):
@@ -29,7 +30,7 @@ def collect_job_data(driver):
     # Total jobs, total line jobs, and total non-verbatim/rush jobs
     number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
     number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
-    number_of_non_verbatim_or_rush_jobs = driver.find_element(By.XPATH, config['number_of_non_verbatim_or_rush_jobs_xpath'])
+    number_of_non_verbatim_or_rush_jobs = driver.find_element(By.XPATH, config['no_verbatim_or_rush_jobs_number']).text
 
     # Format total jobs, line jobs, and non-verbatim/rush jobs
     number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
