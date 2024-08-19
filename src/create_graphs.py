@@ -90,7 +90,7 @@ for i, day in enumerate(days):
     plt.axvline(x=i, color='gray', linestyle='--', linewidth=0.7)  # Vertical lines for days
     plt.text(i + 0.5, min(alj_combined + atj_combined), day, ha='center', va='bottom')
 
-plt.legend()
+plt.legend(loc="upper right")
 
 # Save the plot
 plt.tight_layout()

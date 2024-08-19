@@ -5,6 +5,9 @@ from config.config import get_config
 def apply_filters(driver):
     config = get_config()
 
+    # No Verbatim or Rush jobs
+
+
     # Open "More" menu to select filters
     driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
@@ -26,13 +29,15 @@ def collect_job_lengths(driver):
 def collect_job_data(driver):
     config = get_config()
 
-    # Total jobs and total line jobs
+    # Total jobs, total line jobs, and total non-verbatim/rush jobs
     number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
     number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
+    number_of_non_verbatim_or_rush_jobs = driver.find_element(By.XPATH, config['number_of_non_verbatim_or_rush_jobs_xpath'])
 
-    # Format total jobs
+    # Format total jobs, line jobs, and non-verbatim/rush jobs
     number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
     number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
+    number_of_non_verbatim_or_rush_jobs = number_of_non_verbatim_or_rush_jobs.replace("(", "").replace(")", "")
 
     # Jobs under ten and five minutes
     job_lengths = collect_job_lengths(driver)
@@ -61,7 +66,8 @@ def collect_job_data(driver):
         'zero_unclaim_count': zero_unclaim_count, 'one_unclaim_count': one_unclaim_count,
         'two_unclaim_count': two_unclaim_count,
         'number_of_jobs_with_less_than_two_unclaims': number_of_jobs_with_less_than_two_unclaims,
-        'number_of_jobs': number_of_jobs, 'number_of_line_jobs': number_of_line_jobs
+        'number_of_jobs': number_of_jobs, 'number_of_line_jobs': number_of_line_jobs,
+        'non_verbatim_or_rush_jobs': number_of_non_verbatim_or_rush_jobs,
     }
 
     return job_data
