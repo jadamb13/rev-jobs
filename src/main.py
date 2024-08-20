@@ -18,17 +18,12 @@ def main():
         # Send notifications
 
         # if int(number_of_jobs) > 10:
-        send_notification("Rev Jobs Available",
-                          f"There are {data['number_of_jobs']} total jobs,"
-                          f" and {data['number_of_line_jobs']} line jobs currently available.")
-        send_notification("Job Details",
-                          f"Jobs with 0 unclaims: {data['zero_unclaim_count']} | "
-                          f"Jobs with 1-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']}")
-
-        # if under_ten_count > 5 or under_five_count > 2:
-        send_notification("Job Times",
-                          f"There are {data['under_ten_count']} jobs under 10 minutes "
-                          f"and {data['under_five_count']} jobs under 5 minutes.")
+        send_notification(
+            "Available Job Information",
+            f"Total jobs: {data['number_of_jobs']} | Line jobs: {data['number_of_line_jobs']} \n"
+            f"0 unclaims: {data['zero_unclaim_count']} | 0-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']} \n"
+            f"10 minutes or less: {data['under_ten_count']} | 5 minutes or less: {data['under_five_count']} \n"
+        )
 
     finally:
         teardown_driver(driver)
