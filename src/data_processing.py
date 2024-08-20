@@ -35,10 +35,3 @@ max_line_jobs_per_day = []
 for day_data in daily_data.values():
     max_total_jobs_per_day.append(day_data['total_max'])
     max_line_jobs_per_day.append(day_data['line_max'])
-
-# Remove leading placeholder '0' from line and total jobs lists
-for day_data in daily_data.values():
-    if len(day_data['line_jobs']) > 1:
-        day_data['line_jobs'].pop(0)
-    if len(day_data['total_jobs']) > 1:
-        day_data['total_jobs'].pop(0)

@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
 from config.config import get_config
-
+from auth import random_sleep
 
 def apply_filters(driver):
     config = get_config()
-
+    random_sleep()
     # Select only non-verbatim/rush jobs
     driver.find_element(By.XPATH, config['no_verbatim_or_rush_button_xpath']).click()
     # Open "More" menu to select filters
