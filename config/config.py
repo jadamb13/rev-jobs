@@ -23,9 +23,8 @@ def get_config():
 
         # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
-
         'no_verbatim_or_rush_jobs_number': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/span/a/span[2]',
-        'no_verbatim_or_rush_button': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/span/a',
+        'no_verbatim_or_rush_button_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/span/a',
         'number_of_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
                                 '/div/div[1]/div[1]/div/span[1]/a[1]/span[2]',
         'number_of_line_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div'

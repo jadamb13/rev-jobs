@@ -5,11 +5,12 @@ from config.config import get_config
 def apply_filters(driver):
     config = get_config()
 
-    driver.find_element(By.XPATH, config['no_verbatim_or_rush_button']).click()
+    # Select only non-verbatim/rush jobs
+    driver.find_element(By.XPATH, config['no_verbatim_or_rush_button_xpath']).click()
     # Open "More" menu to select filters
     #driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
-    # De-select "Verbatim" to remove verbatim category jobs
+    # De-select "Verbatim" from "More" menu to remove verbatim category jobs only
     #driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
 
