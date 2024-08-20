@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from config.config import get_config
-from auth import random_sleep
+from src.auth import random_sleep
 
 def apply_filters(driver):
     config = get_config()
