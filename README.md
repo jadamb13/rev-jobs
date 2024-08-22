@@ -58,7 +58,7 @@ created in `create_graphs.py`
 
 ### Dependencies:
 
-### Installation:
+>### Installation:
 
 To run this program, you can follow these steps:
 
@@ -89,7 +89,7 @@ python main.py
 
 ### Usage:
 
-### Future Improvements:
+>### Future Improvements:
   - Cross-platform standalone executable with installer and user guide
   - Machine learning model to predict future job availability
   - Database integration for persistent job data storage:
