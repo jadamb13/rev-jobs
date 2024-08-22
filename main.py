@@ -16,7 +16,7 @@ def main():
         save_data_to_file(data)
 
         # Send notifications
-
+        '''
         # if int(number_of_jobs) > 10:
         send_notification(
             "Available Job Information",
@@ -24,7 +24,7 @@ def main():
             f"0 unclaims: {data['zero_unclaim_count']} | 0-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']} \n"
             f"10 minutes or less: {data['under_ten_count']} | 5 minutes or less: {data['under_five_count']} \n"
         )
-
+        '''
     finally:
         teardown_driver(driver)
 
