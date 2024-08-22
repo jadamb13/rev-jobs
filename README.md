@@ -5,13 +5,13 @@ and creates historical reports of job availability using Matplotlib
 
 ### Project Overview
 
-#### Purpose:
+>#### Purpose:
 The purpose of this project is to reduce time spent manually tracking Rev transcription jobs. Job availability 
 frequently varies — sometimes unpredictably. As a result, a lot of time can be wasted either staying on the website 
 and waiting for jobs to become available, or frequently logging in and applying filters to find preferential jobs. 
 Contractors are only paid for completing a job — any additional time spent tracking or selecting tasks is unpaid.
 
-#### What the program does:
+>#### What the program does:
 The program will run automatically at user-set intervals and track job availability data by logging in, navigating 
 to the job dashboard, applying user-set preferences (e.g. no Verbatim jobs; no Rush jobs), and sending a desktop 
 notification if there are X or more jobs available (X set by the user). This will prevent the need to log in or 
@@ -32,7 +32,7 @@ This data is currently used by `create_graphs.py` to create visualizations of jo
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` 
 file with program dependencies, and the current `README.md` file.
 
-#### Directories and included files:
+>#### Directories and included files:
 
 - `config`: 
     - `config.py`: file to store configuration data such as:
@@ -58,7 +58,7 @@ created in `create_graphs.py`
 
 ### Dependencies:
 
->### Installation:
+### Installation:
 
 To run this program, you can follow these steps:
 
