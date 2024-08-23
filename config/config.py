@@ -39,5 +39,6 @@ def get_config():
         'unclaim_divs_xpath': "//span[@class='unclaim-count']",
 
         # Output
-        'data_file_path': os.getenv('DATA_FILE_PATH')
+        'all_job_data_filepath': os.getenv('ALL_JOB_DATA_FILEPATH'),
+        'weekly_data_filepath': os.getenv('WEEKLY_DATA_FILEPATH')
     }

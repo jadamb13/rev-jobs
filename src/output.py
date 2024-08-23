@@ -24,10 +24,9 @@ def save_weekly_job_data():
 
     # Copy current rev.py information to file in last week's job data folder
     current_weekly_data_file = config['data_file_path']
-    weekly_data_destination_filepath = os.path.join(os.getcwd(), 'Rev_Job_Trends', str(current_year),
-                                                    str(current_month), str(date_today), 'all_job_data.txt')
+    weekly_data_destination_filepath = os.path.join(config['weekly_data_filepath'], current_year, current_month, date_today, 'prev_week_job_data.txt')
 
-    with open(weekly_data_destination_filepath, 'w') as destination_file:
+    with open(weekly_data_destination_filepath, 'w'):
         shutil.copyfile(current_weekly_data_file, weekly_data_destination_filepath)
 
 
