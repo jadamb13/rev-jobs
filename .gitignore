@@ -1,7 +1,8 @@
 __pycache__
+.env
 venv
 .idea/
-job_data.txt
-.env
-maximum_jobs_daily.png
-all_jobs.png
+output/all_job_data.txt
+output/weekly_job_data.txt
+output/maximum_jobs_daily.png
+output/all_jobs.png

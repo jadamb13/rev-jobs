@@ -14,7 +14,7 @@ def update_daily_data(day, time, total_jobs, line_jobs):
     daily_data[day]['total_max'] = max(daily_data[day]['total_jobs'])
 
 
-f = open(os.path.join(os.getcwd(), '../output/job_data.txt'), 'r')
+f = open(os.path.join(os.getcwd(), '../output/all_job_data.txt'), 'r')
 dates = []
 
 for row in f:
