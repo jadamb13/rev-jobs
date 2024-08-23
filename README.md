@@ -1,17 +1,17 @@
-## Automated Transcription Job Notifier
+>## Automated Transcription Job Notifier
 Automates retrieval of transcription job data using Selenium, sends desktop notifications with job information, 
 and creates historical reports of job availability using Matplotlib
 
 
-### Project Overview
+>>### Project Overview
 
->#### Purpose:
+>#### Purpose
 The purpose of this project is to reduce time spent manually tracking Rev transcription jobs. Job availability 
 frequently varies — sometimes unpredictably. As a result, a lot of time can be wasted either staying on the website 
 and waiting for jobs to become available, or frequently logging in and applying filters to find preferential jobs. 
 Contractors are only paid for completing a job — any additional time spent tracking or selecting tasks is unpaid.
 
->#### What the program does:
+>#### What the program does
 The program will run automatically at user-set intervals and track job availability data by logging in, navigating 
 to the job dashboard, applying user-set preferences (e.g. no Verbatim jobs; no Rush jobs), and sending a desktop 
 notification if there are X or more jobs available (X set by the user). This will prevent the need to log in or 
@@ -27,12 +27,12 @@ Wednesday 08/07 03:58 PM 23 0
 
 This data is currently used by `create_graphs.py` to create visualizations of job availability over the course of a week.
 
-### Project Structure
+>>### Project Structure
 
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` 
 file with program dependencies, and the current `README.md` file.
 
->#### Directories and included files:
+>#### Directories and included files
 
 - `config`: 
     - `config.py`: file to store configuration data such as:
@@ -56,9 +56,9 @@ created in `create_graphs.py`
     - `output.py`: logic for saving job data to files
 - `tests`: {Currently Empty} will be used to store unit tests
 
-### Dependencies:
+>>### Dependencies
 
-### Installation:
+>>### Installation
 
 To run this program, you can follow these steps:
 
@@ -87,9 +87,9 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### Usage:
+>>### Usage
 
->### Future Improvements:
+>### Future Improvements
   - Cross-platform standalone executable with installer and user guide
   - Machine learning model to predict future job availability
   - Database integration for persistent job data storage:
