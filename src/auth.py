@@ -36,6 +36,7 @@ def login(driver):
     try:
         driver.find_element(By.XPATH, config['two_factor_xpath'])
         print("Two-factor required.")
+        #sleep(30)
         sys.exit(1)
     except NoSuchElementException:
         print("No two-factor authentication div found.")

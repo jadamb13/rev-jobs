@@ -2,7 +2,7 @@ from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
-from src.output import save_data_to_file
+from src.output import save_data_to_file, save_weekly_job_data
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
         apply_filters(driver)
         data = collect_job_data(driver)
         save_data_to_file(data)
-
+        #save_weekly_job_data()
         # Send notifications
         '''
         # if int(number_of_jobs) > 10:

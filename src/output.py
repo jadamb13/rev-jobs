@@ -9,7 +9,7 @@ def save_data_to_file(data):
 
     # Format and save data
     time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
-    with open(config['data_file_path'], "a+") as source_file:
+    with open(config['all_job_data_filepath'], "a+") as source_file:
         source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
 
 
@@ -23,7 +23,7 @@ def save_weekly_job_data():
     current_year = date.strftime("%Y")
 
     # Copy current rev.py information to file in last week's job data folder
-    current_weekly_data_file = config['data_file_path']
+    current_weekly_data_file = config['all_job_data_filepath']
     weekly_data_destination_filepath = os.path.join(config['weekly_data_filepath'], current_year, current_month, date_today, 'prev_week_job_data.txt')
 
     with open(weekly_data_destination_filepath, 'w'):
