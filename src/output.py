@@ -36,6 +36,7 @@ def save_weekly_job_data():
 
     return previous_weekly_data_filepath
 
+
 def erase_weekly_job_data_file():
     config = get_config()
 

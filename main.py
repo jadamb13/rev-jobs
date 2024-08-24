@@ -17,7 +17,7 @@ def main():
         apply_filters(driver)
         data = collect_job_data(driver)
         save_data_to_file(data)
-
+        '''
         previous_weekly_data_file = save_weekly_job_data()
 
         with open(previous_weekly_data_file) as f:
@@ -26,13 +26,13 @@ def main():
             last_line = line
 
         if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
-            erase_weekly_job_data_file()
+            erase_weekly_job_data_file(previous_weekly_data_file)
             print("It's the first run on Monday. The weekly data file has been reset.")
         else:
             print("It's not the first run on Monday. The weekly data file has not been reset.")
 
         # Send notifications
-        '''
+
         # if int(number_of_jobs) > 10:
         send_notification(
             "Available Job Information",
