@@ -40,5 +40,7 @@ def get_config():
 
         # Output
         'all_job_data_filepath': os.getenv('ALL_JOB_DATA_FILEPATH'),
-        'weekly_data_filepath': os.getenv('WEEKLY_DATA_FILEPATH')
+        'weekly_data_filepath': os.getenv('WEEKLY_DATA_FILEPATH'),
+        'current_report_directory': os.getenv('CURRENT_REPORT_DIRECTORY'),
+        'historical_report_directory': os.getenv('HISTORICAL_REPORT_DIRECTORY')
     }

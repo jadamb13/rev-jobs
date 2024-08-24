@@ -18,15 +18,15 @@ def main():
         data = collect_job_data(driver)
         save_data_to_file(data)
         '''
-        previous_weekly_data_file = save_weekly_job_data()
-
-        with open(previous_weekly_data_file) as f:
+        previous_weekly_data = # delete this line
+        
+        with open(config['weekly_data_filepath']) as f:
             for line in f:
                 pass
             last_line = line
 
         if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
-            erase_weekly_job_data_file(previous_weekly_data_file)
+            erase_weekly_job_data_file()
             print("It's the first run on Monday. The weekly data file has been reset.")
         else:
             print("It's not the first run on Monday. The weekly data file has not been reset.")

@@ -3,6 +3,7 @@ from datetime import datetime
 from src.data_processing import *
 import os
 import shutil
+from config.config import get_config
 
 date = datetime.now()
 today = date.today()
@@ -25,7 +26,9 @@ plt.grid(True)
 plt.legend()
 
 # Creates local directories if needed and saves graph image
-destination_directory = os.path.join(os.getcwd(), '../output')
+config = get_config()
+
+destination_directory = config['current_report_directory']
 max_jobs_file_name = 'maximum_jobs_daily.png'
 max_jobs_full_filepath = destination_directory + '/' + max_jobs_file_name
 if not os.path.exists(destination_directory):
@@ -95,5 +98,5 @@ plt.legend(loc="upper right")
 # Save the plot
 plt.tight_layout()
 all_job_data_filename = 'all_jobs.png'
-all_jobs_full_filepath = destination_directory + '/' + all_job_data_filename
+all_jobs_full_filepath = os.path.join(config['historical_report_directory'], all_job_data_filename)
 plt.savefig(all_jobs_full_filepath)
