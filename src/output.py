@@ -24,10 +24,24 @@ def save_weekly_job_data():
 
     # Copy current rev.py information to file in last week's job data folder
     current_weekly_data_file = config['all_job_data_filepath']
-    weekly_data_destination_filepath = os.path.join(config['weekly_data_filepath'], current_year, current_month, date_today, 'prev_week_job_data.txt')
+    destination_directory = os.path.join(config['weekly_data_filepath'], current_year, current_month, date_today)
 
-    with open(weekly_data_destination_filepath, 'w'):
-        shutil.copyfile(current_weekly_data_file, weekly_data_destination_filepath)
+    if not os.path.exists(destination_directory):
+        os.makedirs(destination_directory)
+
+    previous_weekly_data_filepath = os.path.join(destination_directory, 'prev_week_job_data.txt')
+
+    with open(previous_weekly_data_filepath, 'w'):
+        shutil.copyfile(current_weekly_data_file, previous_weekly_data_filepath)
+
+    return previous_weekly_data_filepath
+
+def erase_weekly_job_data_file():
+    config = get_config()
+
+    # Erase contents of rev.py file to start blank for new week
+    with open(config['weekly_data_filepath'], 'r+') as f:
+        f.truncate(0)
 
 
 # def save_weekly_max_jobs_graph():

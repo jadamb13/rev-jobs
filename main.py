@@ -2,11 +2,14 @@ from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
-from src.output import save_data_to_file, save_weekly_job_data
+from src.output import save_data_to_file, save_weekly_job_data, erase_weekly_job_data_file
+from config.config import get_config
+from datetime import datetime
 
 
 def main():
 
+    config = get_config()
     driver = setup_driver()
 
     try:
@@ -14,7 +17,20 @@ def main():
         apply_filters(driver)
         data = collect_job_data(driver)
         save_data_to_file(data)
-        #save_weekly_job_data()
+
+        previous_weekly_data_file = save_weekly_job_data()
+
+        with open(previous_weekly_data_file) as f:
+            for line in f:
+                pass
+            last_line = line
+
+        if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
+            erase_weekly_job_data_file()
+            print("It's the first run on Monday. The weekly data file has been reset.")
+        else:
+            print("It's not the first run on Monday. The weekly data file has not been reset.")
+
         # Send notifications
         '''
         # if int(number_of_jobs) > 10:
