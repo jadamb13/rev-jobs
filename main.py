@@ -2,7 +2,7 @@ from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
-from src.output import save_data_to_file, save_weekly_job_data, erase_weekly_job_data_file
+from src.output import update_all_job_data, save_weekly_job_data, erase_weekly_job_data_file
 from config.config import get_config
 from datetime import datetime
 
@@ -16,7 +16,7 @@ def main():
         login(driver)
         apply_filters(driver)
         data = collect_job_data(driver)
-        save_data_to_file(data)
+        update_all_job_data(data)
         '''
         previous_weekly_data = # delete this line
         

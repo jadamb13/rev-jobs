@@ -4,7 +4,7 @@ import os
 import shutil
 
 
-def save_data_to_file(data):
+def update_all_job_data(data):
     config = get_config()
 
     # Format and save data
