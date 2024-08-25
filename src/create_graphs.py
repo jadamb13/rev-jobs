@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from src.data_processing import *
 import os
-import shutil
 from config.config import get_config
 
 x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
