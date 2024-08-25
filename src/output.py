@@ -32,7 +32,7 @@ def update_all_job_data(data):
         source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
 
 
-def save_weekly_job_data():
+def save_prev_week_job_data():
 
     date = datetime.now()
     today = date.today()

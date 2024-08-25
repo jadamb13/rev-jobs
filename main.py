@@ -2,7 +2,7 @@ from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
-from src.output import update_all_job_data, save_weekly_job_data, erase_weekly_job_data_file, first_run_of_week
+from src.output import update_all_job_data, save_prev_week_job_data, erase_weekly_job_data_file, first_run_of_week
 from config.config import get_config
 from datetime import datetime
 
@@ -16,7 +16,7 @@ def main():
         '''
         # Save last week's job data and reset weekly job data txt file 
         if first_run_of_week():
-            save_weekly_job_data()
+            save_prev_week_job_data()
             erase_weekly_job_data_file()
         '''
 
