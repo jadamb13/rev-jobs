@@ -28,46 +28,38 @@ def collect_job_lengths(driver):
 def collect_job_data(driver):
     config = get_config()
 
-    # Total jobs, total line jobs, and total non-verbatim/rush jobs
-    number_of_jobs = driver.find_element(By.XPATH, config['number_of_jobs_xpath']).text
-    number_of_line_jobs = driver.find_element(By.XPATH, config['number_of_line_jobs_xpath']).text
-    number_of_non_verbatim_or_rush_jobs = driver.find_element(By.XPATH, config['no_verbatim_or_rush_jobs_number']).text
+    job_data = {}
 
-    # Format total jobs, line jobs, and non-verbatim/rush jobs
-    number_of_jobs = number_of_jobs.replace("(", "").replace(")", "")
-    number_of_line_jobs = number_of_line_jobs.replace("(", "").replace(")", "")
-    number_of_non_verbatim_or_rush_jobs = number_of_non_verbatim_or_rush_jobs.replace("(", "").replace(")", "")
+    # Total jobs, total line jobs, and total non-verbatim/rush jobs
+    job_data['number_of_jobs'] = driver.find_element(
+        By.XPATH, config['number_of_jobs_xpath']).text.replace("(", "").replace(")", "")
+    job_data['number_of_line_jobs'] = driver.find_element(
+        By.XPATH, config['number_of_line_jobs_xpath']).text.replace("(", "").replace(")", "")
+    job_data['number_of_non_verbatim_or_rush_jobs'] = driver.find_element(
+        By.XPATH, config['no_verbatim_or_rush_jobs_number']).text.replace("(", "").replace(")", "")
 
     # Jobs under ten and five minutes
     job_lengths = collect_job_lengths(driver)
-    jobs_under_ten_minutes = str(sum(1 for t in job_lengths if int(t[:2]) < 10))
-    jobs_under_five_minutes = str(sum(1 for t in job_lengths if int(t[:2]) < 5))
+    job_data['under_ten_count'] = str(sum(1 for t in job_lengths if int(t[:2]) < 10))
+    job_data['under_five_count'] = str(sum(1 for t in job_lengths if int(t[:2]) < 5))
 
     # Audio and video jobs
     media_types = {}  # Dict to store future media types and counts
-    number_of_audio_jobs = len(driver.find_elements(By.XPATH, config['audio_divs_xpath']))
-    number_of_video_jobs = len(driver.find_elements(By.XPATH, config['video_divs_xpath']))
+    job_data['audio_jobs'] = len(driver.find_elements(By.XPATH, config['audio_divs_xpath']))
+    job_data['video_jobs'] = len(driver.find_elements(By.XPATH, config['video_divs_xpath']))
 
     # Find jobs that have been unclaimed <= 2 times
     unclaim_divs = driver.find_elements(By.XPATH, config['unclaim_divs_xpath'])
     unclaims = [int(div.text) for div in unclaim_divs]
 
     # Count of jobs with zero, one, and two unclaims
-    zero_unclaim_count = str(unclaims.count(0))
-    one_unclaim_count = str(unclaims.count(1))
-    two_unclaim_count = str(unclaims.count(2))
-    number_of_jobs_with_less_than_two_unclaims = int(one_unclaim_count) + int(two_unclaim_count) + int(zero_unclaim_count)
-
-    # Store job data in dict
-    job_data = {
-        'under_ten_count': jobs_under_ten_minutes, 'under_five_count': jobs_under_five_minutes,
-        'audio_jobs': number_of_audio_jobs, 'video_jobs': number_of_video_jobs,
-        'zero_unclaim_count': zero_unclaim_count, 'one_unclaim_count': one_unclaim_count,
-        'two_unclaim_count': two_unclaim_count,
-        'number_of_jobs_with_less_than_two_unclaims': number_of_jobs_with_less_than_two_unclaims,
-        'number_of_jobs': number_of_jobs, 'number_of_line_jobs': number_of_line_jobs,
-        'non_verbatim_or_rush_jobs': number_of_non_verbatim_or_rush_jobs,
-    }
+    job_data['zero_unclaim_count'] = str(unclaims.count(0))
+    job_data['one_unclaim_count'] = str(unclaims.count(1))
+    job_data['two_unclaim_count'] = str(unclaims.count(2))
+    job_data['number_of_jobs_with_less_than_two_unclaims'] = (int(job_data['zero_unclaim_count']) +
+                                                              int(job_data['one_unclaim_count']) +
+                                                              int(job_data['two_unclaim_count'])
+                                                              )
 
     return job_data
 
