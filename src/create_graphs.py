@@ -5,12 +5,6 @@ import os
 import shutil
 from config.config import get_config
 
-date = datetime.now()
-today = date.today()
-date_today = today.strftime("%b-%d-%Y")
-current_month = date.strftime("%B")
-current_year = date.strftime("%Y")
-
 x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 sorted_unique_dates = list(sorted(unique_dates))
 
@@ -66,13 +60,13 @@ assert len(day_indices) == len(alj_combined) == len(atj_combined), "Mismatch in 
 plt.figure(figsize=(14, 6))
 
 # Scatterplot for line jobs
-plt.scatter(day_indices, alj_combined, color='blue', label='Line Jobs Available')
+plt.scatter(day_indices, alj_combined, color='blue', label='Line Jobs')
 
 # Scatterplot for total jobs
-plt.scatter(day_indices, atj_combined, color='red', label='Total Jobs Available')
+plt.scatter(day_indices, atj_combined, color='red', label='Total Jobs')
 
 # Customize the plot
-plt.title('Job Availability Throughout the Week with Time Distribution')
+plt.title('Job Availability by Weekday | August 01, 2024 — Present')
 plt.xlabel('Day of the Week')
 plt.ylabel('Number of Jobs Available')
 
