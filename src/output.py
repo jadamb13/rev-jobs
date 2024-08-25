@@ -4,8 +4,27 @@ import os
 import shutil
 
 
+config = get_config()
+
+
+def first_run_of_week():
+    first_run = False
+
+    with open(config['weekly_data_filepath']) as f:
+        for line in f:
+            pass
+        last_line = line
+
+    if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
+        first_run = True
+        print("It's the first run on Monday. The weekly data file has been reset.")
+    else:
+        print("It's not the first run on Monday. The weekly data file has not been reset.")
+
+    return first_run
+
+
 def update_all_job_data(data):
-    config = get_config()
 
     # Format and save data
     time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
@@ -14,7 +33,6 @@ def update_all_job_data(data):
 
 
 def save_weekly_job_data():
-    config = get_config()
 
     date = datetime.now()
     today = date.today()
@@ -36,11 +54,9 @@ def save_weekly_job_data():
 
 
 def erase_weekly_job_data_file():
-    config = get_config()
 
     # Erase contents of rev.py file to start blank for new week
     with open(config['weekly_data_filepath'], 'r+') as f:
         f.truncate(0)
-
 
 # def save_weekly_max_jobs_graph():
