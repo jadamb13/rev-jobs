@@ -33,7 +33,7 @@ def save_weekly_max_plot(destination_filepath):
     plt.savefig(destination_filepath)
 
 
-def create_scatter_plot():
+def update_scatter_plot():
     # Function to convert time to a fraction of a day
     def time_to_fraction_of_day(time_str):
         time_obj = datetime.strptime(time_str, '%I:%M %p')  # Convert string to time object
