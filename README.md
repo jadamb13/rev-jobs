@@ -3,7 +3,7 @@ Automates retrieval of transcription job data using Selenium, sends desktop noti
 and creates historical reports of job availability using Matplotlib
 
 
->>### Project Overview
+### Project Overview
 
 >#### Purpose
 The purpose of this project is to reduce time spent manually tracking Rev transcription jobs. Job availability 
@@ -27,7 +27,7 @@ Wednesday 08/07 03:58 PM 23 0
 
 This data is currently used by `create_graphs.py` to create visualizations of job availability over the course of a week.
 
->>### Project Structure
+### Project Structure
 
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` 
 file with program dependencies, and the current `README.md` file.
@@ -56,9 +56,9 @@ created in `create_graphs.py`
     - `output.py`: logic for saving job data to files
 - `tests`: {Currently Empty} will be used to store unit tests
 
->>### Dependencies
+### Dependencies
 
->>### Installation
+### Installation
 
 To run this program, you can follow these steps:
 
@@ -87,7 +87,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
->>### Usage
+### Usage
 
 >### Future Improvements
   - Cross-platform standalone executable with installer and user guide
