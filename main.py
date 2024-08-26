@@ -5,6 +5,7 @@ from src.notification import send_notification
 from src.output import update_job_data_files, save_prev_week_job_data, erase_weekly_job_data_file, first_run_of_week
 from src.create_graphs import create_scatter_plot
 
+
 def main():
 
     driver = setup_driver()

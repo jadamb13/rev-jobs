@@ -1,13 +1,19 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from config.config import get_config
-from src.auth import random_sleep
 
 
 def apply_filters(driver):
     config = get_config()
-    random_sleep(10, 15)
+
     # Select only non-verbatim/rush jobs
-    driver.find_element(By.XPATH, config['no_verbatim_or_rush_button_xpath']).click()
+    WebDriverWait(driver, 30).until(
+        ec.element_to_be_clickable(
+            (By.XPATH, config['no_verbatim_or_rush_button_xpath'])
+        )
+    ).click()
+
     # Open "More" menu to select filters
     #driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
