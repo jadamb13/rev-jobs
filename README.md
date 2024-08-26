@@ -17,7 +17,7 @@ to the job dashboard, applying user-set preferences (e.g. no Verbatim jobs; no R
 notification if there are X or more jobs available (X set by the user). This will prevent the need to log in or 
 constantly check if jobs meeting the user's preferences are available. 
 
-The program also saves job information to the `job_data.txt` file located in the `output` directory of the project. 
+The program also saves job information to the `all_job_data.txt` and `weekly_job_data.txt` files located in the `output` directory of the project. 
 The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time format} {AM/PM} {Total Jobs} 
 {Line Jobs} as shown below:
 
@@ -25,12 +25,13 @@ The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time
 Wednesday 08/07 03:58 PM 23 0
 ```
 
-This data is currently used by `create_graphs.py` to create visualizations of job availability over the course of a week.
+This data is currently used by `create_graphs.py` to create visualizations of job availability — for the week, and historically 
+by day of the week. 
 
 ### Project Structure
 
 The project is organized into several directories and a few root-level files: a `.gitignore` file, a `requirements.txt` 
-file with program dependencies, and the current `README.md` file.
+file with program dependencies, `main.py` (entry point of the program), and the current `README.md` file.
 
 >#### Directories and included files
 
@@ -40,21 +41,29 @@ file with program dependencies, and the current `README.md` file.
       - File path to `geckodriver` web browser engine for Firefox WebDriver and output file(s)
       - Rev username and password (stored and accessed from local `.env` file)
       - XPATHs for page elements used by Selenium
-- `output`:
-    - `job_data.txt`: stores job data from each run of the program
-    - `all_jobs.png`: scatter plot showing jobs available for each run of the program (by day of the week)
-    - `maximum_jobs_daily.png`: line plot showing maximum jobs available each day of the week
 - `src`:
-    - `main.py`: entry point of the program
     - `data_retrieval.py`: logic to control web scraper and filtering of job data
-    - `data_processing.py`: logic to store job data from `job_data.txt` into data structures for use in visualizations 
-created in `create_graphs.py`
-    - `create_graphs.py`: logic to create Matplotlib visualizations at the end of each week
+    - `data_processing.py`: logic to store job data from `weekly_job_data.txt` and `all_job_data.txt` into dictionaries for use in plots
+    - `create_graphs.py`: logic to create Matplotlib plots from job data
     - `driver_setup.py`: responsible for web scraper set up and tear down
     - `notification.py`: handles logic for sending notifications to desktop
     - `auth.py`: handles logic for logging into Rev
     - `output.py`: logic for saving job data to files
+    - `job.py`: model class to represent a job on the Rev job dashboard
 - `tests`: {Currently Empty} will be used to store unit tests
+
+>#### Non-tracked (local) directories and files
+
+- `output`:
+    - `all_job_data.txt`: stores job data from all runs of the program 
+    - `weekly_job_data.txt`: stores job data only for the current week
+- `reports`:
+    - `current`: directory to store reports about the current week
+    - `historical`: directory to store historical reports 
+      - `all_jobs.png`: scatter plot showing jobs available for each run of the program (by day of the week)
+      - `maximum_jobs_daily.png`: line plot showing maximum jobs available each day of the week for the previous week
+      - `{Year}/{Month}/{Date}/prev_week_job_data.txt`: program-generated directories and file to store previous week's job data
+- `.env`: file to store sensitive data locally for use by `config.py`
 
 ### Dependencies
 
