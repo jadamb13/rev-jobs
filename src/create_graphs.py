@@ -4,9 +4,21 @@ from src.data_processing import *
 import os
 from config.config import get_config
 
+config = get_config()
 
-def save_weekly_max_plot():
+
+def save_weekly_max_plot(destination_filepath):
+
     x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    data = create_job_data_dict(config['weekly_data_filepath'])
+
+    max_total_jobs_per_day = []
+    max_line_jobs_per_day = []
+
+    for day_data in data.values():
+        max_total_jobs_per_day.append(day_data['total_max'])
+        max_line_jobs_per_day.append(day_data['line_max'])
 
     # Construct plots using data imported from data_processing.py
     plt.plot(x_axis, max_line_jobs_per_day, color='blue', label='Line Jobs')
@@ -18,14 +30,7 @@ def save_weekly_max_plot():
     plt.ylabel('Number of Jobs Available')
     plt.grid(True)
     plt.legend()
-
-    # Creates local directories if needed and saves graph image
-    config = get_config()
-    destination_directory = config['current_report_directory']
-    max_jobs_full_filepath = os.path.join(destination_directory, 'maximum_jobs_daily.png')
-    if not os.path.exists(destination_directory):
-        os.makedirs(destination_directory)
-    plt.savefig(max_jobs_full_filepath)
+    plt.savefig(destination_filepath)
 
 
 def create_scatter_plot():
@@ -40,9 +45,10 @@ def create_scatter_plot():
     day_indices = []
     alj_combined = []
     atj_combined = []
+    data = create_job_data_dict(config['all_job_data_filepath'])
 
     # Populate day_indices, alj_combined, and atj_combined from daily_data
-    for day_index, (day_name, day_data) in enumerate(daily_data.items()):
+    for day_index, (day_name, day_data) in enumerate(data.items()):
         for time_str, line_jobs, total_jobs in zip(day_data['times'], day_data['line_jobs'], day_data['total_jobs']):
             time_fraction = time_to_fraction_of_day(time_str)
             adjusted_day_index = day_index + time_fraction

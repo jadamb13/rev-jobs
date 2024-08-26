@@ -1,10 +1,10 @@
 import os
-from config.config import get_config
 
 # Initialize daily data structure
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-daily_data = {day: {'times': [], 'line_jobs': [], 'total_jobs': [], 'line_max': 0, 'total_max': 0, 'line_max_time': ''}
-              for day in days}
+daily_data = {
+    day: {'times': [], 'line_jobs': [], 'total_jobs': [], 'line_max': 0, 'total_max': 0, 'line_max_time': ''}
+    for day in days}
 
 
 def update_daily_data(day, time, total_jobs, line_jobs):
@@ -15,25 +15,19 @@ def update_daily_data(day, time, total_jobs, line_jobs):
     daily_data[day]['total_max'] = max(daily_data[day]['total_jobs'])
 
 
-config = get_config()
-f = open(config['all_job_data_filepath'], 'r')
-dates = []
+def create_job_data_dict(file):
 
-for row in f:
-    row = row.split()
-    dates.append(row[1])
-    day, time, total_jobs, line_jobs = row[0], f"{row[2]} {row[3]}", int(row[4]), int(
-        row[5].rstrip(os.linesep).rstrip('\t#'))
+    dates = []
+    with open(file) as f:
+        for row in f:
+            row = row.split()
+            dates.append(row[1])
+            day, time, total_jobs, line_jobs = row[0], f"{row[2]} {row[3]}", int(row[4]), int(
+                row[5].rstrip(os.linesep).rstrip('\t#'))
 
-    update_daily_data(day, time, total_jobs, line_jobs)
+            update_daily_data(day, time, total_jobs, line_jobs)
 
-f.close()
+    return daily_data
 
-# Gets unique dates and max job data for create_graphs.py
-unique_dates = set(dates)
-max_total_jobs_per_day = []
-max_line_jobs_per_day = []
 
-for day_data in daily_data.values():
-    max_total_jobs_per_day.append(day_data['total_max'])
-    max_line_jobs_per_day.append(day_data['line_max'])
+
