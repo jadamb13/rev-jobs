@@ -11,25 +11,26 @@ def first_run_of_week():
     first_run = False
 
     with open(config['weekly_data_filepath']) as f:
-        for line in f:
-            pass
-        last_line = line
+        if f.read(1):
+            for line in f:
+                pass
+            last_line = line
 
-    if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
-        first_run = True
-        print("It's the first run on Monday. The weekly data file has been reset.")
-    else:
-        print("It's not the first run on Monday. The weekly data file has not been reset.")
+            if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
+                first_run = True
+                print("It's the first run on Monday. The weekly data file has been reset.")
 
     return first_run
 
 
-def update_all_job_data(data):
+def update_job_data_files(data):
 
     # Format and save data
     time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
-    with open(config['all_job_data_filepath'], "a+") as source_file:
-        source_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
+    with open(config['all_job_data_filepath'], "a+") as all_data_file:
+        all_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
+    with open(config['weekly_data_filepath'], "a+") as weekly_data_file:
+        all_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
 
 
 def save_prev_week_job_data():
