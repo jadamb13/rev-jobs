@@ -5,6 +5,7 @@ from src.notification import send_notification
 from src.output import update_all_job_data, save_prev_week_job_data, erase_weekly_job_data_file, first_run_of_week
 from config.config import get_config
 from datetime import datetime
+from src.create_graphs import save_weekly_max_plot
 
 
 def main():
@@ -13,12 +14,12 @@ def main():
     driver = setup_driver()
 
     try:
-        '''
+
         # Save last week's job data and reset weekly job data txt file 
         if first_run_of_week():
+            save_weekly_max_plot()
             save_prev_week_job_data()
             erase_weekly_job_data_file()
-        '''
 
         login(driver)
         apply_filters(driver)

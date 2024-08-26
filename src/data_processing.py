@@ -1,4 +1,5 @@
 import os
+from config.config import get_config
 
 # Initialize daily data structure
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -14,7 +15,8 @@ def update_daily_data(day, time, total_jobs, line_jobs):
     daily_data[day]['total_max'] = max(daily_data[day]['total_jobs'])
 
 
-f = open(os.path.join(os.getcwd(), '../output/all_job_data.txt'), 'r')
+config = get_config()
+f = open(config['all_job_data_filepath'], 'r')
 dates = []
 
 for row in f:
