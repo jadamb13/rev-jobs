@@ -3,14 +3,11 @@ from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
 from src.output import update_job_data_files, save_prev_week_job_data, erase_weekly_job_data_file, first_run_of_week
-from config.config import get_config
-from datetime import datetime
 from src.create_graphs import save_weekly_max_plot
 
 
 def main():
 
-    config = get_config()
     driver = setup_driver()
 
     try:
