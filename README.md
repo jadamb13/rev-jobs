@@ -15,7 +15,7 @@ Contractors are only paid for completing a job — any additional time spent tra
 The program will run automatically at user-set intervals and track job availability data by logging in, navigating 
 to the job dashboard, applying user-set preferences (e.g. no Verbatim jobs; no Rush jobs), and sending a desktop 
 notification if there are X or more jobs available (X set by the user). This will prevent the need to log in or 
-constantly check if jobs meeting the users’ preferences are available. 
+constantly check if jobs meeting the user's preferences are available. 
 
 The program also saves job information to the `job_data.txt` file located in the `output` directory of the project. 
 The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time format} {AM/PM} {Total Jobs} 
