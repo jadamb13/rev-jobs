@@ -2,8 +2,11 @@ from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
 from src.notification import send_notification
-from src.output import update_job_data_files, save_prev_week_job_data, erase_weekly_job_data_file, first_run_of_week
+from src.output import update_job_data_files, save_prev_week_job_data, erase_file, first_run_of_week
 from src.create_graphs import update_scatter_plot
+from config.config import get_config
+
+config = get_config()
 
 
 def main():
@@ -15,7 +18,7 @@ def main():
         # Save last week's job data, max jobs plot, and reset weekly job data txt file
         if first_run_of_week():
             save_prev_week_job_data()
-            erase_weekly_job_data_file()
+            erase_file(config['weekly_data_filepath'])
 
         login(driver)
         apply_filters(driver)
