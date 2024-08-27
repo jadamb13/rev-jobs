@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -23,8 +24,10 @@ def get_config():
 
         # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
-        'no_verbatim_or_rush_jobs_number': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/span/a/span[2]',
-        'no_verbatim_or_rush_button_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div/span[1]/span/a',
+        'no_verbatim_or_rush_jobs_number': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
+                                           '/div/div[1]/div[1]/div/span[1]/span/a/span[2]',
+        'no_verbatim_or_rush_button_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
+                                            '/div/div[1]/div[1]/div/span[1]/span/a',
         'number_of_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div/div[3]'
                                 '/div/div[1]/div[1]/div/span[1]/a[1]/span[2]',
         'number_of_line_jobs_xpath': '/html/body/div[1]/div/div[2]/div/div/div'
@@ -42,5 +45,16 @@ def get_config():
         'all_job_data_filepath': os.getenv('ALL_JOB_DATA_FILEPATH'),
         'weekly_data_filepath': os.getenv('WEEKLY_DATA_FILEPATH'),
         'current_report_directory': os.getenv('CURRENT_REPORT_DIRECTORY'),
-        'historical_report_directory': os.getenv('HISTORICAL_REPORT_DIRECTORY')
+        'historical_report_directory': os.getenv('HISTORICAL_REPORT_DIRECTORY'),
+        'date_info': get_date_info(),
     }
+
+
+def get_date_info():
+    date_info = {}
+    date = datetime.now()
+    today = date.today()
+    date_info['date_today'] = today.strftime("%b-%d-%Y")
+    date_info['current_month'] = date.strftime("%B")
+    date_info['current_year'] = date.strftime("%Y")
+    return date_info

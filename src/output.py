@@ -7,22 +7,25 @@ from src.create_graphs import save_weekly_max_plot
 config = get_config()
 
 
-def first_run_of_week():
-    first_run = False
-
-    with open(config['weekly_data_filepath']) as f:
+def get_last_line_of_file(file):
+    with open(file) as f:
+        # Check for empty file
         if f.read(1):
+            # Get the last line of the file
             for line in f:
                 pass
             last_line = line
+    return last_line
 
-            # Check for empty file
-            # Last line doesn't have to be 'Sunday' (if program doesn't run on Sunday, for example)
-            #
-            #
-            if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
-                first_run = True
-                print("It's the first run on Monday. The weekly data file will be reset.")
+
+def first_run_of_week():
+
+    first_run = False
+    last_line = get_last_line_of_file(config['weekly_data_filepath'])
+    # If the last run was on Sunday, and today is Monday: it's the first run of the week
+    if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
+        first_run = True
+        print("It's the first run on Monday. The weekly data file will be reset.")
 
     return first_run
 
@@ -42,15 +45,12 @@ def update_job_data_files(data):
 
 def save_prev_week_job_data():
 
-    date = datetime.now()
-    today = date.today()
-    date_today = today.strftime("%b-%d-%Y")
-    current_month = date.strftime("%B")
-    current_year = date.strftime("%Y")
+    date = config['date_info']
 
     # Copy weekly_job_data.txt to file in last week's job data folder
     current_weekly_data_file = config['weekly_data_filepath']
-    destination_directory = os.path.join(config['historical_report_directory'], current_year, current_month, date_today)
+    destination_directory = os.path.join(config['historical_report_directory'],
+                                         str(date['current_year']), str(date['current_month']), str(date['date_today']))
 
     if not os.path.exists(destination_directory):
         os.makedirs(destination_directory)
