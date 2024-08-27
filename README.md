@@ -19,10 +19,10 @@ constantly check if jobs meeting the user's preferences are available.
 
 The program also saves job information to the `all_job_data.txt` and `weekly_job_data.txt` files located in the `output` directory of the project. 
 The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time format} {AM/PM} {Total Jobs} 
-{Line Jobs} as shown below:
+{Line Jobs} {Non-Verbatim & Non-Rush Jobs} as shown below:
 
 ```
-Wednesday 08/07 03:58 PM 23 0
+Wednesday 08/07 03:58 PM 23 0 14
 ```
 
 This data is currently used by `create_graphs.py` to create visualizations of job availability — for the week, and historically 

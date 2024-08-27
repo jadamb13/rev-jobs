@@ -31,9 +31,11 @@ def update_job_data_files(data):
     # Format and save data
     time_and_date = datetime.now().strftime("%A %m/%d %I:%M %p")
     with open(config['all_job_data_filepath'], "a+") as all_data_file:
-        all_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
+        all_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']} "
+                            f"{data['number_of_non_verbatim_or_rush_jobs']}\n")
     with open(config['weekly_data_filepath'], "a+") as weekly_data_file:
-        weekly_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']}\n")
+        weekly_data_file.write(f"{time_and_date} {data['number_of_jobs']} {data['number_of_line_jobs']} "
+                               f"{data['number_of_non_verbatim_or_rush_jobs']}\n")
 
 
 def save_prev_week_job_data():
