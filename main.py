@@ -23,17 +23,17 @@ def main():
         update_job_data_files(data)
         update_scatter_plot()
 
-        '''
+
         # Send notifications
 
-        # if int(number_of_jobs) > 10:
+        # if int(number_of_jobs) > 0:
         send_notification(
             "Available Job Information",
             f"Total jobs: {data['number_of_jobs']} | Line jobs: {data['number_of_line_jobs']} \n"
             f"0 unclaims: {data['zero_unclaim_count']} | 0-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']} \n"
             f"10 minutes or less: {data['under_ten_count']} | 5 minutes or less: {data['under_five_count']} \n"
         )
-        '''
+
 
     finally:
         teardown_driver(driver)
