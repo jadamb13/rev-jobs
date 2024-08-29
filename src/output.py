@@ -2,12 +2,12 @@ from config.config import get_config
 from datetime import datetime
 import os
 import shutil
-from src.create_graphs import save_weekly_max_plot
+from src.plots import save_weekly_max_plot
 
 config = get_config()
 
 
-def get_last_line_of_file(file):
+def get_last_line(file):
     with open(file) as f:
         # Check for empty file
         if f.read(1):
@@ -21,7 +21,7 @@ def get_last_line_of_file(file):
 def first_run_of_week():
 
     first_run = False
-    last_line = get_last_line_of_file(config['weekly_data_filepath'])
+    last_line = get_last_line(config['weekly_data_filepath'])
     # If the last run was on Sunday, and today is Monday: it's the first run of the week
     if last_line.split(' ')[0] == 'Sunday' and datetime.now().strftime('%A') == 'Monday':
         first_run = True

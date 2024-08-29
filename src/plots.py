@@ -20,7 +20,7 @@ def save_weekly_max_plot(destination_filepath):
         max_total_jobs_per_day.append(day_data['total_max'])
         max_line_jobs_per_day.append(day_data['line_max'])
 
-    # Construct plots using data imported from data_processing.py
+    # Construct line plot
     plt.plot(x_axis, max_line_jobs_per_day, color='blue', label='Line Jobs')
     plt.plot(x_axis, max_total_jobs_per_day, color='Red', label='Total Jobs')
 
@@ -69,7 +69,7 @@ def update_scatter_plot():
     plt.scatter(day_indices, atj_combined, color='red', label='Total Jobs')
 
     # Customize the plot
-    plt.title('Job Availability by Weekday | August 01, 2024 — Present')
+    plt.title('Job Availability by Weekday | August 07, 2024 — Present')
     plt.xlabel('Day of the Week')
     plt.ylabel('Number of Jobs Available')
 
