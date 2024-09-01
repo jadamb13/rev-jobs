@@ -11,6 +11,7 @@ def get_config():
         'url': 'https://www.rev.com',
         'gecko_driver_path': os.getenv('GECKO_DRIVER_PATH'),
         'firefox_profile_path': os.getenv('FIREFOX_DRIVER_PATH'),
+        'firefox_binary_path': os.getenv('FIREFOX_BINARY_PATH'),
 
         # Login
         'login_button_xpath': '//*[@id="navbar-login"]',
