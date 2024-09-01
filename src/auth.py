@@ -6,7 +6,7 @@ from config.config import get_config
 from time import sleep
 import random
 import sys
-
+from src.email_utils import get_2fa_code
 
 def random_sleep(min_time=1, max_time=5):
     sleep(random.randint(min_time, max_time))
@@ -36,7 +36,12 @@ def login(driver):
     try:
         driver.find_element(By.XPATH, config['two_factor_xpath'])
         print("Two-factor required.")
-        sleep(30)
+        print("Attempting to retrieve code from email...")
+        random_sleep()
+        code = get_2fa_code()
+        print("Code retrieved. Code is: {}".format(code))
+        driver.find_element(By.XPATH, config['two_factor_xpath']).send_keys(code)
+        driver.find_element(By.XPATH, config['sign_in_xpath']).click()
         #sys.exit(1)
     except NoSuchElementException:
         print("No two-factor authentication div found.")

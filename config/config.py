@@ -21,6 +21,8 @@ def get_config():
         'password_xpath': '//*[@id="password-input"]',
         'sign_in_xpath': '//*[@id="submit-button"]',
         'two_factor_xpath': '//*[@id="mfa-code-input"]',
+        'gmail_username': os.getenv('GMAIL_USERNAME'),
+        'gmail_password': os.getenv('GMAIL_PASSWORD'),
 
         # Elements on job dashboard
         'notifications_popup_xpath': '//*[@id="pushActionRefuse"]',
