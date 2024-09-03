@@ -21,7 +21,7 @@ def main():
             erase_file(config['weekly_data_filepath'])
 
         login(driver)
-        apply_filters(driver)
+        # apply_filters(driver)
         data = collect_job_data(driver)
         update_job_data_files(data)
         update_scatter_plot()

@@ -42,15 +42,16 @@ def login(driver):
         print("Code retrieved. Code is: {}".format(code))
         driver.find_element(By.XPATH, config['two_factor_xpath']).send_keys(code)
         driver.find_element(By.XPATH, config['sign_in_xpath']).click()
-        #sys.exit(1)
+        # sys.exit(1)
     except NoSuchElementException:
         print("No two-factor authentication div found.")
 
     # Wait for notification pop-up
     random_sleep(4, 8)  # Will not find element without waiting
-
+    '''
     # Click "No, thanks" on notification pop up (if showing)
     try:
         driver.find_element(By.XPATH, config['notifications_popup_xpath']).click()
     except NoSuchElementException:
         print("News and Updates pop-up element not found. XPATH might be incorrect or doesn't exist.")
+    '''
