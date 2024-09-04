@@ -1,6 +1,6 @@
 import imaplib
 import email
-from email.message import EmailMessage, Message
+from email.message import Message
 from typing import Optional
 from config.config import get_config
 
@@ -8,14 +8,12 @@ config = get_config()
 
 
 def login_to_gmail() -> imaplib.IMAP4_SSL:
-    """Logs in to Gmail using IMAP and returns the IMAP client."""
     imap = imaplib.IMAP4_SSL("imap.gmail.com")
     imap.login(config['gmail_username'], config['gmail_password'])
     return imap
 
 
 def fetch_recent_email(imap: imaplib.IMAP4_SSL) -> Optional[Message]:
-    """Fetches the most recent email from the inbox."""
     imap.select('INBOX')
     status, messages = imap.search(None, "ALL")
     email_ids = messages[0].split()
@@ -27,20 +25,17 @@ def fetch_recent_email(imap: imaplib.IMAP4_SSL) -> Optional[Message]:
 
     for response_part in msg_data:
         if isinstance(response_part, tuple):
-            # Return the Message object directly
             return email.message_from_bytes(response_part[1])
 
     return None
 
 
 def is_email_from_sender(msg: email.message.EmailMessage, sender: str) -> bool:
-    """Checks if the email is from the specified sender."""
     from_header = msg.get("From")
     return from_header and sender.lower() in from_header.lower()
 
 
 def get_email_body(msg: Message) -> str:
-    """Extracts and returns the body of the email."""
     body = ""
 
     if msg.is_multipart():

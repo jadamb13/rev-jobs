@@ -21,10 +21,10 @@ def apply_filters(driver):
         print("Timed out waiting for No Verbatim, No Rush filter to be clickable.")
 
     # Open "More" menu to select filters
-    #driver.find_element(By.XPATH, config['more_button_xpath']).click()
+    # driver.find_element(By.XPATH, config['more_button_xpath']).click()
 
     # De-select "Verbatim" from "More" menu to remove verbatim category jobs only
-    #driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
+    # driver.find_element(By.XPATH, config['verbatim_checkbox_xpath']).click()
 
 
 def collect_job_lengths(driver):

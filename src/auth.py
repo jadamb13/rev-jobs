@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as ec
 from config.config import get_config
 from time import sleep
 import random
-import sys
 from src.email_utils import get_2fa_code
 
 config = get_config()

@@ -38,9 +38,12 @@ def main():
         # if data['number_of_non_verbatim_or_rush_jobs'] > 20:
         send_notification(
             "Available Job Information",
-            f"NVNR jobs: {data['number_of_non_verbatim_or_rush_jobs']} | Line jobs: {data['number_of_line_jobs']} \n"
-            f"0 unclaims: {data['zero_unclaim_count']} | 0-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']} \n"
-            f"10 minutes or less: {data['under_ten_count']} | 5 minutes or less: {data['under_five_count']} \n"
+            f"NVNR jobs: {data['number_of_non_verbatim_or_rush_jobs']} | "
+            f"Line jobs: {data['number_of_line_jobs']} \n"
+            f"0 unclaims: {data['zero_unclaim_count']} | "
+            f"0-2 unclaims: {data['number_of_jobs_with_less_than_two_unclaims']} \n"
+            f"10 minutes or less: {data['under_ten_count']} | "
+            f"5 minutes or less: {data['under_five_count']} \n"
         )
 
     finally:

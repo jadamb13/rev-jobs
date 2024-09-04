@@ -10,7 +10,6 @@ config = get_config()
 def save_weekly_max_plot(destination_filepath):
 
     x_axis = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
     data = create_job_data_dict(config['weekly_data_filepath'])
 
     max_total_jobs_per_day = []
