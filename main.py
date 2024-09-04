@@ -15,9 +15,10 @@ def main():
     try:
         driver = setup_driver()
     except WebDriverException:
-        print("selenium.common.exceptions.WebDriverException: Message: Process unexpectedly closed with status 2.")
-        print("Crontab does not have permissions to run script while user is logged into another user account. "
-              "Program closing.")
+        print("selenium.common.exceptions.WebDriverException: "
+              "Message: Process unexpectedly closed with status 2.")
+        print("This typically happens when logged in with another macOS user account. "
+              "Program exiting.")
         sys.exit(1)
 
     try:
@@ -32,10 +33,6 @@ def main():
         data = collect_job_data(driver)
         update_job_data_files(data)
         update_scatter_plot()
-
-        # Send notifications
-
-        # if data['number_of_non_verbatim_or_rush_jobs'] > 20:
         send_notification(
             "Available Job Information",
             f"NVNR jobs: {data['number_of_non_verbatim_or_rush_jobs']} | "
