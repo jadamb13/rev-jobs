@@ -1,7 +1,5 @@
 import sys
-
 from selenium.common import WebDriverException
-
 from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
@@ -18,7 +16,8 @@ def main():
         driver = setup_driver()
     except WebDriverException:
         print("selenium.common.exceptions.WebDriverException: Message: Process unexpectedly closed with status 2.")
-        print("Crontab unable to run while user is logged into another user account. Program closing.")
+        print("Crontab does not have permissions to run script while user is logged into another user account. "
+              "Program closing.")
         sys.exit(1)
 
     try:

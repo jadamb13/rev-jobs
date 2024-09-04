@@ -4,9 +4,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from config.config import get_config
 
+config = get_config()
+
 
 def apply_filters(driver):
-    config = get_config()
+
     print("Applying filters...")
     try:
         # Select only non-verbatim/rush jobs
@@ -26,7 +28,6 @@ def apply_filters(driver):
 
 
 def collect_job_lengths(driver):
-    config = get_config()
 
     # Collects time length of all jobs available
     job_lengths = []
@@ -37,7 +38,6 @@ def collect_job_lengths(driver):
 
 
 def collect_job_data(driver):
-    config = get_config()
 
     job_data = {}
 

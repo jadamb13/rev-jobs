@@ -1,6 +1,5 @@
 import imaplib
 import email
-import mimetypes
 from email.message import EmailMessage, Message
 from typing import Optional
 from config.config import get_config

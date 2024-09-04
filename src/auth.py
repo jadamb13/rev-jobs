@@ -8,27 +8,28 @@ import random
 import sys
 from src.email_utils import get_2fa_code
 
+config = get_config()
+
+
 def random_sleep(min_time=1, max_time=5):
     sleep(random.randint(min_time, max_time))
 
 
 def login(driver):
 
-    config = get_config()
-
     # Log in #
     driver.get(config['url'])
     random_sleep()
+
     driver.find_element(By.XPATH, config['login_button_xpath']).click()
     driver.find_element(By.XPATH, config['username_xpath']).send_keys(config['username'])
     random_sleep()
-    driver.find_element(By.XPATH, config['next_button_xpath']).click()
 
-    # WebDriverWait line found at: https://stackoverflow.com/questions/56085152/selenium-python-error-element-could
-    # -not-be-scrolled-into-view to solve issue of element not being scrolled into view
+    driver.find_element(By.XPATH, config['next_button_xpath']).click()
     WebDriverWait(driver, 30).until(
         ec.element_to_be_clickable((By.XPATH, config['password_xpath']))).send_keys(config['password'])
     random_sleep()
+
     driver.find_element(By.XPATH, config['sign_in_xpath']).click()
     random_sleep(3, 6)
 
@@ -42,7 +43,8 @@ def login(driver):
         print("Code retrieved. Code is: {}".format(code))
         driver.find_element(By.XPATH, config['two_factor_xpath']).send_keys(code)
         driver.find_element(By.XPATH, config['sign_in_xpath']).click()
-        # sys.exit(1)
+        print("Signing in...")
+
     except NoSuchElementException:
         print("No two-factor authentication div found.")
 
