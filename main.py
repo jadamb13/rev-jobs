@@ -1,3 +1,7 @@
+import sys
+
+from selenium.common import WebDriverException
+
 from src.driver_setup import setup_driver, teardown_driver
 from src.auth import login
 from src.data_retrieval import apply_filters, collect_job_data
@@ -10,8 +14,12 @@ config = get_config()
 
 
 def main():
-
-    driver = setup_driver()
+    try:
+        driver = setup_driver()
+    except WebDriverException:
+        print("selenium.common.exceptions.WebDriverException: Message: Process unexpectedly closed with status 2.")
+        print("Crontab unable to run while user is logged into another user account. Program closing.")
+        sys.exit(1)
 
     try:
 
@@ -21,7 +29,7 @@ def main():
             erase_file(config['weekly_data_filepath'])
 
         login(driver)
-        # apply_filters(driver)
+        apply_filters(driver)
         data = collect_job_data(driver)
         update_job_data_files(data)
         update_scatter_plot()

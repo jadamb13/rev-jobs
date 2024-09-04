@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -6,13 +7,16 @@ from config.config import get_config
 
 def apply_filters(driver):
     config = get_config()
-
-    # Select only non-verbatim/rush jobs
-    WebDriverWait(driver, 30).until(
-        ec.element_to_be_clickable(
-            (By.XPATH, config['no_verbatim_or_rush_button_xpath'])
-        )
-    ).click()
+    print("Applying filters...")
+    try:
+        # Select only non-verbatim/rush jobs
+        WebDriverWait(driver, 30).until(
+            ec.element_to_be_clickable(
+                (By.XPATH, config['no_verbatim_or_rush_button_xpath'])
+            )
+        ).click()
+    except TimeoutException:
+        print("Timed out waiting for No Verbatim, No Rush filter to be clickable.")
 
     # Open "More" menu to select filters
     #driver.find_element(By.XPATH, config['more_button_xpath']).click()
