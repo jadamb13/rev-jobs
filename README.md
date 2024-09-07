@@ -6,7 +6,7 @@ and creates historical reports of job availability using Matplotlib
 ### Project Overview
 
 >#### Purpose
-The purpose of this project is to reduce time spent manually tracking Rev transcription jobs. Job availability 
+The purpose of this project is to reduce time spent manually tracking transcription jobs. Job availability 
 frequently varies — sometimes unpredictably. As a result, a lot of time can be wasted either staying on the website 
 and waiting for jobs to become available, or frequently logging in and applying filters to find preferential jobs. 
 Contractors are only paid for completing a job — any additional time spent tracking or selecting tasks is unpaid.
@@ -25,7 +25,7 @@ The data is stored in the format {Day of the week} {Month/Day} {Time in 12h time
 Wednesday 08/07 03:58 PM 23 0 14
 ```
 
-This data is currently used by `create_graphs.py` to create visualizations of job availability — for the week, and historically 
+This data is currently used by `plots.py` to create visualizations of job availability — for the week, and historically 
 by day of the week. 
 
 ### Project Structure
@@ -44,7 +44,7 @@ file with program dependencies, `main.py` (entry point of the program), and the 
 - `src`:
     - `data_retrieval.py`: logic to control web scraper and filtering of job data
     - `data_processing.py`: logic to store job data from `weekly_job_data.txt` and `all_job_data.txt` into dictionaries for use in plots
-    - `create_graphs.py`: logic to create Matplotlib plots from job data
+    - `plots.py`: logic to create Matplotlib plots from job data
     - `driver_setup.py`: responsible for web scraper set up and tear down
     - `notification.py`: handles logic for sending notifications to desktop
     - `auth.py`: handles logic for logging into Rev
@@ -61,7 +61,7 @@ file with program dependencies, `main.py` (entry point of the program), and the 
     - `current`: directory to store reports about the current week
     - `historical`: directory to store historical reports 
       - `all_jobs.png`: scatter plot showing jobs available for each run of the program (by day of the week)
-      - `maximum_jobs_daily.png`: line plot showing maximum jobs available each day of the week for the previous week
+      - `{Year}/{Month}/{Date}/maximum_jobs_daily.png`: line plot showing maximum jobs available each day of the week for the previous week
       - `{Year}/{Month}/{Date}/prev_week_job_data.txt`: program-generated directories and file to store previous week's job data
 - `.env`: file to store sensitive data locally for use by `config.py`
 
